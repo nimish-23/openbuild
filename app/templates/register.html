@@ -1,0 +1,55 @@
+{% extends 'base.html' %} 
+
+{% block title %}OpenBuild | Register{% endblock %} 
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}" />
+{% endblock %} 
+
+{% block content %}
+<div class="content-section">
+  <form action="{{ url_for('auth.register') }}" method="POST">
+    {{ form.hidden_tag() }}
+    
+    <fieldset class="form-group">
+      <legend>Join OpenBuild Today</legend>
+
+      <div class="form-group">
+        {{ form.username.label }} 
+        {{ form.username(class="form-control") }} 
+        {% for error in form.username.errors %}
+          <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        {{ form.email.label }} 
+        {{ form.email(class="form-control") }} 
+        {% for error in form.email.errors %}
+          <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        {{ form.password.label }} 
+        {{ form.password(class="form-control") }}
+        {% for error in form.password.errors %}
+          <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        {{ form.confirm_password.label }} 
+        {{ form.confirm_password(class="form-control") }}
+        {% for error in form.confirm_password.errors %}
+          <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+      </div>
+    </fieldset>
+
+    <div class="form-group">
+        {{ form.submit(class="btn-primary") }}
+    </div>
+  </form>
+</div>
+{% endblock %}

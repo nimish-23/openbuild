@@ -1,0 +1,21 @@
+# --- Environment ---
+# This matches the folder in your image
+env/
+
+# --- Sensitive Data ---
+# Prevents leaking your SECRET_KEY
+.env
+
+# --- Databases ---
+# Ignores the SQLite database folder created by Flask-SQLAlchemy
+instance/
+*.db
+
+# --- Python ---
+# Ignores the compiled cache folders seen in your 'app' directory
+__pycache__/
+*.py[cod]
+
+# --- OS & IDE ---
+.vscode/
+.DS_Store
