@@ -1,44 +1,61 @@
-/* Container styling to match Register card */
+/* Container and Center Alignment */
 .content-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 2rem;
+}
+
+/* Login Card Styling */
+form {
     background: #ffffff;
-    max-width: 420px;
-    margin: 80px auto;
-    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    padding: 2.5rem;
     border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     border: 1px solid #e2e8f0;
 }
 
+/* Header/Legend */
 legend {
-    font-size: 1.6rem;
+    font-size: 1.75rem;
     font-weight: 800;
-    color: #1e293b;
-    margin-bottom: 30px;
+    color: #0f172a;
+    margin-bottom: 1.5rem;
     text-align: center;
+    border: none;
     width: 100%;
 }
 
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Form Groups and Inputs */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 }
 
 .form-group label {
     display: block;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #475569;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
 }
 
-/* Modern Input styling */
 .form-control {
     width: 100%;
-    padding: 12px 16px;
+    padding: 0.75rem 1rem;
     font-size: 1rem;
     border: 1px solid #cbd5e1;
-    border-radius: 10px;
+    border-radius: 8px;
     transition: all 0.2s ease;
-    background-color: #fcfcfc;
+    background-color: #f8fafc;
 }
 
 .form-control:focus {
@@ -48,51 +65,134 @@ legend {
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
-/* Button Styling */
+/* Validation Errors */
+.text-danger {
+    color: #dc2626;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Primary Login Button */
 .btn-primary {
     width: 100%;
     background-color: #2563eb;
     color: white;
-    padding: 14px;
+    padding: 0.8rem;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s ease;
-    margin-top: 10px;
+    transition: background 0.2s ease;
+    margin-top: 1rem;
 }
 
 .btn-primary:hover {
     background-color: #1d4ed8;
 }
 
-/* Footer links */
+/* Footer Links */
 .form-footer {
+    margin-top: 2rem;
     text-align: center;
-    margin-top: 25px;
-    padding-top: 20px;
+    padding-top: 1.5rem;
     border-top: 1px solid #f1f5f9;
 }
 
-.text-muted {
-    color: #64748b;
-    font-size: 0.9rem;
-}
-
-.text-muted a {
+.form-footer a {
     color: #2563eb;
     text-decoration: none;
     font-weight: 600;
 }
 
-.text-muted a:hover {
+.form-footer a:hover {
     text-decoration: underline;
 }
 
-.text-danger {
-    color: #ef4444;
-    font-size: 0.8rem;
-    margin-top: 5px;
+.text-muted {
+    color: #64748b;
+}
+
+/* 1. Global Override for Auth Pages */
+body {
+    overflow: hidden; /* Removes the scrollbar entirely */
+    height: 100vh;
+}
+
+main {
+    padding: 0 !important; /* Neutralizes base.css padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 64px); /* Subtracts Navbar height */
+}
+
+/* 2. Card Styling */
+.content-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    background: #ffffff;
+    width: 90%;
+    max-width: 380px; /* Slimmer than register for a focused feel */
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+legend {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
     display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 0.4rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background-color: #f8fafc;
+}
+
+/* 3. Button and Footer */
+.btn-primary {
+    width: 100%;
+    background-color: #1e40af; /* Consistent with Navbar Blue */
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.form-footer {
+    margin-top: 1.2rem;
+    text-align: center;
+}
+
+.form-footer a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
 }

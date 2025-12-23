@@ -42,7 +42,7 @@ def login():
         # Verify hash against plain text attempt
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
-            return redirect(url_for('project.view_projects'))
+            return redirect(url_for('home.view_home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
             

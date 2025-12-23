@@ -1,8 +1,36 @@
 {% extends 'base.html' %}
 
 {% block title %}OpenBuild | Home{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" />
+{% endblock %}
+
 {% block content %}
-
-<h1>this is home page</h1>
-
+<div class="home-container">
+    {% if current_user.is_authenticated %}
+        <div class="welcome-section">
+            <span class="badge">Member Dashboard</span>
+            <h1>Welcome back, <span class="highlight">{{ current_user.username }}</span>!</h1>
+            <p>You are logged in as <strong>{{ current_user.email }}</strong></p>
+            
+            <div class="home-actions">
+                <a href="{{ url_for('project.view_projects') }}" class="btn-primary">View My Projects</a>
+                <a href="{{ url_for('project.new_project') }}" class="btn-secondary">+ Start New Build</a>
+            </div>
+        </div>
+    {% else %}
+        <div class="hero-section">
+            <h1>Build in Public. <br><span class="highlight">Grow together.</span></h1>
+            <p>The platform for developers to document their journey, share updates, and showcase their process to the world.</p>
+            
+            <div class="action-bar">
+              <a href="{{ url_for('project.new_project') }}" class="btn-submit">
+                + Create New Project
+              </a>
+              <p class="hint">Join a community of builders today.</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

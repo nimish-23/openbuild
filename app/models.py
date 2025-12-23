@@ -33,3 +33,6 @@ class Projects(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+# class Posts(db.Model):
+#     __tablename__ = 'posts'
+

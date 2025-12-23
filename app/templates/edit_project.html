@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %} Edit {{ project.title }} {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/edit_project.css') }}" />
+{% endblock %}
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <h2>✏️ Edit Project</h2>
+        <p class="form-subtitle">Modify the details of <strong>{{ project.title }}</strong></p>
+
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                {{ form.title.label }}
+                {{ form.title(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.description.label }}
+                {{ form.description(class="form-control", rows="5") }}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    {{ form.status.label }}
+                    {{ form.status(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.start_date.label }}
+                    {{ form.start_date(class="form-control", type="date") }}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                {{ form.submit(class="btn-submit", value="Update Project") }}
+                <a href="{{ url_for('project.project_details', id=project.id) }}" class="link-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

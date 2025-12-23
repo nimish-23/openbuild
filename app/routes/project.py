@@ -1,4 +1,4 @@
-from flask import Blueprint , render_template , redirect , url_for , flash
+from flask import Blueprint , render_template , redirect , url_for , flash , request
 from flask_login import login_required , current_user
 from app.form import ProjectForm
 from app import db
@@ -40,3 +40,58 @@ def new_project():
 def view_projects():
     user_projects  = Projects.query.filter_by(user_id=current_user.id).all()
     return render_template('projects.html', projects=user_projects)
+
+@project_bp.route('/project/<int:id>',methods=['GET','POST'])
+def project_details(id):
+    project = Projects.query.get_or_404(id)
+
+    if project.user_id != current_user.id:
+        flash("You do not have permission to view this project.", "danger")
+        return redirect(url_for('project.view_projects'))
+
+    return render_template('project_detail.html',project=project)
+
+@project_bp.route('/project/<int:id>/edit',methods=['GET','POST'])
+@login_required
+def project_edit(id):
+    project = Projects.query.get_or_404(id)
+
+    if project.user_id != current_user.id:
+        flash("You can only edit your own projects!", "danger")
+        return redirect(url_for('project.view_projects'))
+    
+    form = ProjectForm()
+
+    if form.validate_on_submit():
+        project.title = form.title.data
+        project.description = form.description.data
+        project.status = form.status.data
+        project.start_date = form.start_date.data
+        # Add tech_stack/repo_url here if added to form
+        
+        db.session.commit()
+        flash('Project updated successfully!', 'success')
+        return redirect(url_for('project.project_details', id=project.id))
+    
+    elif request.method == 'GET':
+        form.title.data = project.title
+        form.description.data = project.description
+        form.status.data = project.status
+        form.start_date.data = project.start_date
+
+    return render_template('edit_project.html',form=form , project=project)
+
+@project_bp.route('/project/<int:id>/delete', methods=['POST']) 
+@login_required
+def project_delete(id):
+    project = Projects.query.get_or_404(id) 
+    
+    if project.user_id != current_user.id:
+        flash("You are not authorized to delete this project!", "danger")
+        return redirect(url_for('project.view_projects'))
+    
+    db.session.delete(project)
+    db.session.commit()
+    
+    flash('Project deleted successfully!', 'success')
+    return redirect(url_for('project.view_projects'))

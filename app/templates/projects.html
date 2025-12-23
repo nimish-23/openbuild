@@ -1,37 +1,52 @@
-{% extends "base.html" %}
-
-{% block title %} My Projects | OpenBuild {% endblock %}
-
-{% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/projects_list.css') }}" />
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %} My Projects | OpenBuild {% endblock
+%} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/projects.css') }}"
+/>
+{% endblock %} {% block content %}
 <div class="list-container">
-    <div class="list-header">
-        <h1>My Projects</h1>
-        <a href="{{ url_for('project.new_project') }}" class="btn-new">+ New Project</a>
+  <div class="list-header">
+    <div class="header-text">
+      <h1>My Projects</h1>
+      <p>Managing {{ projects|length }} active builds</p>
     </div>
+    <a href="{{ url_for('project.new_project') }}" class="btn-new"
+      >+ New Project</a
+    >
+  </div>
 
-    <div class="projects-grid">
+  <div class="projects-grid">
     {% for project in projects %}
-        <div class="project-card">
-            <div class="card-header">
-                <h2>{{ project.title }}</h2>
-                <span class="status-badge {{ project.status }}">{{ project.status }}</span>
-            </div>
-            <div class="card-body">
-                <p>{{ project.description }}</p>
-            </div>
-            <div class="card-footer">
-                <a href="{{ url_for('project.view_projects', id=project.id) }}" class="view-link">View Project →</a>
-            </div>
-        </div>
-    {% else %}
-        <div class="empty-state">
-            <p>You haven't started any projects yet. Time to build!</p>
-        </div>
-    {% endfor %}
+    <div class="project-card">
+      <div class="card-header">
+        <h2>{{ project.title }}</h2>
+        <span class="status-badge {{ project.status|lower }}"
+          >{{ project.status.replace('_', ' ') }}</span
+        >
+      </div>
+      <div class="card-body">
+        <p>{{ project.description }}</p>
+      </div>
+      <div class="card-footer">
+        <a
+          href="{{ url_for('project.project_details', id=project.id) }}"
+          class="view-link"
+        >
+          View Roadmap <span>→</span>
+        </a>
+      </div>
     </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-icon">🚀</div>
+      <h3>No projects yet</h3>
+      <p>The best time to start was yesterday. The second best time is now.</p>
+      <a href="{{ url_for('project.new_project') }}" class="btn-new"
+        >Create Your First Project</a
+      >
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

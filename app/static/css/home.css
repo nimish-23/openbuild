@@ -1,0 +1,102 @@
+/* Container and General Layout */
+.home-container {
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+    text-align: center;
+}
+
+/* Hero Section (Logged Out) */
+.hero-section h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.hero-section p {
+    font-size: 1.25rem;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+}
+
+/* Welcome Section (Logged In) */
+.welcome-section {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.welcome-section h1 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin: 1rem 0;
+}
+
+.badge {
+    background: #eff6ff;
+    color: #2563eb;
+    padding: 0.4rem 1rem;
+    border-radius: 99px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Highlighting and Color Accents */
+.highlight {
+    color: #2563eb;
+}
+
+/* Buttons and Actions */
+.btn-submit, .btn-primary {
+    background-color: #2563eb;
+    color: white;
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+}
+
+.btn-submit:hover, .btn-primary:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+.btn-secondary {
+    color: #475569;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 1.5rem;
+    padding: 0.9rem 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #f8fafc;
+}
+
+.action-bar .hint {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .hero-section h1 { font-size: 2.5rem; }
+    .home-actions { display: flex; flex-direction: column; gap: 1rem; }
+    .btn-secondary { margin-left: 0; }
+}

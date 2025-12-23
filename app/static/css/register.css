@@ -1,80 +1,151 @@
-/* Container for the form card */
+/* Container: Prevents overflow and centers the card */
 .content-section {
-    background: #ffffff;
-    max-width: 440px;
-    margin: 60px auto;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--border-color);
-}
-
-/* Form Heading */
-legend {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    color: var(--text-main);
-    margin-bottom: 24px;
-    text-align: center;
-}
-
-/* Grouping labels and inputs */
-.form-group {
-    margin-bottom: 20px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px); /* Adjusts for Navbar height */
+    padding: 1rem;
+    background-color: #f8fafc;
+    overflow: hidden; /* Prevents container-level scroll */
 }
 
-/* Label styling */
+/* Compact Form Card */
+form {
+    background: #ffffff;
+    width: 100%;
+    max-width: 600px; /* Wider to support side-by-side columns */
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+/* Compact Typography */
+legend {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 1.25rem;
+    text-align: center;
+    border-bottom: none;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Grid Layout: Handles the side-by-side fields */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Creates two equal columns */
+    gap: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
 .form-group label {
-    font-size: 0.875rem;
+    display: block;
+    font-size: 0.85rem;
     font-weight: 600;
-    margin-bottom: 6px;
-    color: var(--text-muted);
+    color: #475569;
+    margin-bottom: 0.3rem;
 }
 
-/* Input styling - fixes the "squashed" look */
 .form-control {
     width: 100%;
-    padding: 12px 16px;
-    font-size: 1rem;
-    color: var(--text-main);
-    background-color: #ffffff;
-    border: 1px solid var(--border-color);
+    padding: 0.6rem 0.8rem;
+    font-size: 0.95rem;
+    border: 1px solid #cbd5e1;
     border-radius: 8px;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease;
+    background-color: #f8fafc;
 }
 
 .form-control:focus {
     outline: none;
-    border-color: var(--primary-blue);
+    border-color: #2563eb;
+    background-color: #ffffff;
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
-/* Error messages */
+/* Validation Errors: Tightened to save space */
 .text-danger {
     color: #dc2626;
     font-size: 0.75rem;
-    font-weight: 500;
-    margin-top: 5px;
+    display: block;
+    margin-top: 0.2rem;
 }
 
-/* The Submit Button */
+/* Actions Section */
+.form-actions {
+    margin-top: 1rem;
+    text-align: center;
+}
+
 .btn-primary {
     width: 100%;
-    background-color: var(--primary-blue);
+    max-width: 250px; /* Keeps the button from being too wide */
+    background-color: #2563eb;
     color: white;
-    padding: 12px;
+    padding: 0.75rem;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.2s ease;
-    margin-top: 10px;
 }
 
 .btn-primary:hover {
     background-color: #1d4ed8;
+}
+
+.form-footer {
+    margin-top: 1rem;
+}
+
+.form-footer a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Responsive: Stacks fields on mobile screens */
+@media (max-width: 550px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .content-section {
+        overflow-y: auto; /* Allows scroll only on small mobile devices */
+        align-items: flex-start;
+    }
+}
+
+/* Add this to your register.css to override base.css */
+
+/* 1. Remove global scroll */
+body {
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* 2. Remove the 2rem padding from the main tag */
+main {
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 3. Make the registration container fit exactly */
+.content-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Subtracts navbar (approx 64px) and footer if visible */
+    height: calc(100vh - 80px); 
 }
