@@ -16,6 +16,7 @@
                 <li><a href="{{ url_for('home.view_home') }}">Home</a></li>
                 
                 {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('project.view_projects') }}">Projects</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                 {% else %}
                     <li><a href="{{ url_for('auth.login') }}">Login</a></li>

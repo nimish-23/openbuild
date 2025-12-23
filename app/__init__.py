@@ -39,4 +39,7 @@ def create_app():
     from app.routes.home import home_bp
     app.register_blueprint(home_bp,url_prefix='/')
 
+    from app.routes.project import project_bp
+    app.register_blueprint(project_bp,url_prefix='/')
+
     return app

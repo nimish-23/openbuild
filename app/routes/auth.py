@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, flash, url_for
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user ,login_required
 from app.form import RegistrationForm, LoginForm 
-from app.models import User
+from app.models import Users
 from app import bcrypt, db
 
 auth = Blueprint('auth', __name__)
@@ -14,14 +14,14 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         # Check if user exists using the email from form data
-        user_exist = User.query.filter_by(email=form.email.data).first()
+        user_exist = Users.query.filter_by(email=form.email.data).first()
         if user_exist:
             flash('Email already exists. Please login.', 'danger')
             return redirect(url_for('auth.register'))
         
         # Hash password and create user
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        new_user = Users(username=form.username.data, email=form.email.data, password=hashed_password)
         
         db.session.add(new_user)
         db.session.commit()
@@ -38,11 +38,11 @@ def login():
     
     form = LoginForm() # Create this class in form.py
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = Users.query.filter_by(email=form.email.data).first()
         # Verify hash against plain text attempt
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
-            return redirect(url_for('home.view_home'))
+            return redirect(url_for('project.view_projects'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
             
@@ -51,4 +51,4 @@ def login():
 @auth.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('home.view_home'))
