@@ -33,6 +33,17 @@ class Projects(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-# class Posts(db.Model):
-#     __tablename__ = 'posts'
+    posts = db.relationship('Posts',backref='project',lazy=True)
+
+class Posts(db.Model):
+    __tablename__ = 'posts'
+
+    id = db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+    project_id = db.Column(db.Integer,db.ForeignKey('projects.id'),nullable=False)
+    title = db.Column(db.String(100),nullable=False)
+    content = db.Column(db.Text,nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    image_file = db.Column(db.String(20), nullable=True)
 

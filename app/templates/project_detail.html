@@ -26,15 +26,53 @@
             <section class="card timeline-section">
                 <div class="section-header">
                     <h3>Build Log / Timeline</h3>
-                    <a href="#" class="btn-sm">+ New Update</a>
+                    <a href="{{ url_for('post.post_new', project_id=project.id) }}" class="btn-sm">+ New Update</a>
                 </div>
-                <div class="empty-timeline">
-                    <p>No updates yet. Start sharing your progress!</p>
+                
+                <div class="timeline-container">
+                    {% if project.posts %}
+                        {% for post in project.posts|sort(attribute='created_at', reverse=True) %}
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="post-header">
+                                    <h4>{{ post.title }}</h4>
+                                    <div class="post-actions">
+                                        <a href="{{ url_for('post.post_edit', post_id=post.id) }}" class="text-edit">Edit</a>
+                                        <form action="{{ url_for('post.post_delete', post_id=post.id) }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="text-delete" onclick="return confirm('Delete this update?')">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                
+                                <div class="markdown-body">
+                                    {{ post.content | render_markdown }}
+                                </div>
+
+                                {% if post.image_file %}
+                                    <img src="{{ url_for('static', filename='uploads/' + post.image_file) }}" class="post-img">
+                                {% endif %}
+                                <div class="post-footer">
+                                    <small class="text-muted">Logged on {{ post.created_at.strftime('%Y-%m-%d') }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-timeline">
+                            <p>No updates yet. Start sharing your progress!</p>
+                        </div>
+                    {% endif %}
                 </div>
             </section>
         </main>
 
         <aside class="project-sidebar">
+            <div class="card ai-preview-card">
+                <h4>AI Marketing Agent</h4>
+                <p class="small-text">Transform this journey into a 30s Reel.</p>
+                <button class="btn-ai-generate" disabled title="Phase 8 Feature">🎬 Generate Reel</button>
+            </div>
+
             <div class="card">
                 <h4>Details</h4>
                 <div class="detail-item">
@@ -60,8 +98,8 @@
 
             <div class="card actions-card">
                 <h4>Management</h4>
-                <a href="{{ url_for('project.project_edit', id=project.id) }}" class="btn-edit">Edit Project</a>
-                <form action="{{ url_for('project.project_delete', id=project.id) }}" method="POST" style="margin-top: 10px;">
+                <a href="{{ url_for('project.project_edit', project_id=project.id) }}" class="btn-edit">Edit Project</a>
+                <form action="{{ url_for('project.project_delete', project_id=project.id) }}" method="POST" style="margin-top: 10px;">
                     <button type="submit" class="btn-delete" onclick="return confirm('Are you sure?')">Delete Project</button>
                 </form>
             </div>

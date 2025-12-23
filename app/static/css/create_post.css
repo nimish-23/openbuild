@@ -1,0 +1,112 @@
+/* Container: Centered viewport alignment */
+.content-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    padding: 1.5rem;
+    background-color: #f8fafc;
+}
+
+/* Card Styling: Matches Login/Register but slightly wider */
+form {
+    background: #ffffff;
+    width: 100%;
+    max-width: 550px; 
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+legend {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1e40af; /* Consistent Deep Blue */
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-bottom: none;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 0.4rem;
+}
+
+/* Input & Textarea Styling */
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #2563eb;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* File Input Specifics */
+.form-control-file {
+    font-size: 0.85rem;
+    color: #64748b;
+    padding: 0.5rem 0;
+}
+
+/* Button & Footer Actions */
+.form-actions {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.btn-primary {
+    width: 100%;
+    background-color: #2563eb;
+    color: white;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.form-footer {
+    margin-top: 1rem;
+}
+
+.form-footer a {
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #64748b;
+    transition: color 0.2s;
+}
+
+.form-footer a:hover {
+    color: #1e40af;
+}
+
+/* Validation Errors */
+.text-danger {
+    color: #dc2626;
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 0.3rem;
+}

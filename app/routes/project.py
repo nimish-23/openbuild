@@ -10,8 +10,7 @@ project_bp = Blueprint('project',__name__)
 @project_bp.route('/project/new', methods=['GET', 'POST'])
 @login_required
 def new_project():
-    # REMOVED: if current_user.is_authenticated check (it causes infinite redirect)
-    
+
     form = ProjectForm()
     if form.validate_on_submit():
         # Phase 2: Check for duplicates (Optional but good)
@@ -41,9 +40,9 @@ def view_projects():
     user_projects  = Projects.query.filter_by(user_id=current_user.id).all()
     return render_template('projects.html', projects=user_projects)
 
-@project_bp.route('/project/<int:id>',methods=['GET','POST'])
-def project_details(id):
-    project = Projects.query.get_or_404(id)
+@project_bp.route('/project/<int:project_id>',methods=['GET','POST'])
+def project_details(project_id):
+    project = Projects.query.get_or_404(project_id)
 
     if project.user_id != current_user.id:
         flash("You do not have permission to view this project.", "danger")
@@ -51,10 +50,10 @@ def project_details(id):
 
     return render_template('project_detail.html',project=project)
 
-@project_bp.route('/project/<int:id>/edit',methods=['GET','POST'])
+@project_bp.route('/project/<int:project_id>/edit',methods=['GET','POST'])
 @login_required
-def project_edit(id):
-    project = Projects.query.get_or_404(id)
+def project_edit(project_id):
+    project = Projects.query.get_or_404(project_id)
 
     if project.user_id != current_user.id:
         flash("You can only edit your own projects!", "danger")
@@ -71,7 +70,7 @@ def project_edit(id):
         
         db.session.commit()
         flash('Project updated successfully!', 'success')
-        return redirect(url_for('project.project_details', id=project.id))
+        return redirect(url_for('project.project_details', project_id=project.id))
     
     elif request.method == 'GET':
         form.title.data = project.title
@@ -81,10 +80,10 @@ def project_edit(id):
 
     return render_template('edit_project.html',form=form , project=project)
 
-@project_bp.route('/project/<int:id>/delete', methods=['POST']) 
+@project_bp.route('/project/<int:project_id>/delete', methods=['POST']) 
 @login_required
-def project_delete(id):
-    project = Projects.query.get_or_404(id) 
+def project_delete(project_id):
+    project = Projects.query.get_or_404(project_id) 
     
     if project.user_id != current_user.id:
         flash("You are not authorized to delete this project!", "danger")

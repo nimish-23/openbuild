@@ -5,6 +5,8 @@ from flask_migrate import Migrate
 from dotenv import load_dotenv
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+import markdown
+from markupsafe import Markup
 
 # Load the variables from .env into the environment
 load_dotenv()
@@ -26,6 +28,8 @@ def create_app():
     # Initialize extensions with the app
     db.init_app(app)
     migrate.init_app(app, db)
+    from app import models
+
     bcrypt.init_app(app)
     
     # Crucial: Initialize login_manager with the app
@@ -41,5 +45,14 @@ def create_app():
 
     from app.routes.project import project_bp
     app.register_blueprint(project_bp,url_prefix='/')
+
+    from app.routes.post import post_bp
+    app.register_blueprint(post_bp,url_prefix='/')
+
+    @app.template_filter('render_markdown')
+    def render_markdown(text):
+        # Convert markdown to HTML and wrap in Markup to tell Jinja it's safe
+        html = markdown.markdown(text, extensions=['fenced_code', 'codehilite'])
+        return Markup(html)
 
     return app
