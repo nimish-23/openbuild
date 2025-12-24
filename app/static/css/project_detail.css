@@ -1,54 +1,129 @@
-/* Container & Layout */
+/* 1. Global Variables & Base Reset */
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --indigo: #4f46e5;
+    --indigo-hover: #3730a3;
+    --danger: #ef4444;
+    --danger-hover: #b91c1c;
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --radius: 16px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+}
+
+/* 2. Layout Structure */
 .project-view-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
 }
 
 .project-grid-layout {
     display: grid;
     grid-template-columns: 1fr 320px;
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
-/* Header Section */
+@media (max-width: 850px) {
+    .project-grid-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 3. Header Section */
 .project-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 2.5rem;
 }
 
 .title-area {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.25rem;
     margin-bottom: 0.5rem;
 }
 
+.title-area h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
 .status-badge {
-    padding: 0.25rem 0.75rem;
+    padding: 0.35rem 0.85rem;
     border-radius: 99px;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.025em;
 }
 
-/* Content Cards */
+.status-badge.in_progress { background: #dcfce7; color: #166534; }
+.status-badge.completed { background: #dbeafe; color: #1e40af; }
+
+.meta-info {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* 4. Global Card Styling */
 .card {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
     margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
 }
 
-/* Timeline Styling */
+.card h3 {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+/* 5. Build Log & Timeline Logic */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.btn-sm {
+    background: var(--primary);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.btn-sm:hover { background: var(--primary-hover); }
+
 .timeline-container {
-    position: relative;
+    border-left: 2px solid var(--border);
     padding-left: 2rem;
-    border-left: 2px solid #e2e8f0;
-    margin-left: 0.5rem;
+    margin-left: 0.75rem;
+    position: relative;
 }
 
 .timeline-item {
@@ -59,93 +134,202 @@
 .timeline-item::before {
     content: '';
     position: absolute;
-    left: -2.7rem;
-    top: 0.25rem;
-    width: 16px;
-    height: 16px;
+    left: calc(-2rem - 9px);
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    background: var(--primary);
+    border: 3px solid white;
     border-radius: 50%;
-    background: #2563eb;
-    border: 4px solid white;
-    box-shadow: 0 0 0 2px #e2e8f0;
+    box-shadow: 0 0 0 2px var(--border);
+    z-index: 2;
 }
 
-/* Post Header & Actions */
+/* 6. Post Content & Actions */
 .post-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Perfect Horizontal Alignment */
     align-items: center;
     margin-bottom: 1rem;
+    width: 100%;
+}
+
+.post-header h4 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1e293b;
 }
 
 .post-actions {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.5rem;
+}
+
+.text-edit, .text-delete {
     font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
 
-.text-edit { color: #2563eb; text-decoration: none; }
-.text-delete { color: #dc2626; background: none; border: none; cursor: pointer; padding: 0; }
+.text-edit {
+    color: var(--indigo);
+}
 
-/* Markdown & Media */
+.text-edit:hover {
+    background-color: #eef2ff;
+    color: var(--indigo-hover);
+}
+
+.text-delete {
+    color: var(--danger);
+}
+
+.text-delete:hover {
+    background-color: #fef2f2;
+    color: var(--danger-hover);
+}
+
 .markdown-body {
-    color: #334155;
+    font-size: 1rem;
+    color: #475569;
     line-height: 1.6;
-    margin-bottom: 1rem;
 }
-
-.markdown-body p { margin-bottom: 1rem; }
 
 .post-img {
     width: 100%;
-    border-radius: 8px;
-    margin: 1rem 0;
-    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+    margin: 1.25rem 0;
+    border: 1px solid var(--border);
+    object-fit: cover;
 }
 
-/* Sidebar Specifics */
+.post-footer {
+    margin-top: 0.5rem;
+}
+
+/* 7. Sidebar & AI Card Styling */
+.ai-preview-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: white;
+    border: none;
+}
+
+.ai-preview-card h4 { color: #f8fafc; margin-bottom: 0.5rem; }
+
+.btn-ai-generate {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin-top: 1rem;
+    font-weight: 700;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.detail-item {
+    margin-bottom: 1.5rem;
+}
+
+.detail-item label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+}
+
 .tag {
     display: inline-block;
     background: #f1f5f9;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+    color: #475569;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
     font-size: 0.75rem;
-    margin: 0.25rem;
+    margin: 0.25rem 0.25rem 0.25rem 0;
 }
 
+.external-link {
+    font-size: 0.9rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Management Buttons */
 .btn-edit, .btn-delete {
     display: block;
     width: 100%;
     text-align: center;
-    padding: 0.6rem;
-    border-radius: 6px;
+    padding: 0.75rem;
+    border-radius: 12px;
     font-size: 0.9rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
     text-decoration: none;
+    transition: all 0.2s ease;
 }
 
-.btn-edit { background: #f8fafc; border: 1px solid #cbd5e1; color: #1e293b; }
-.btn-delete { background: #fef2f2; border: 1px solid #fee2e2; color: #b91c1c; }
-
-/* AI Preview Card */
-.ai-preview-card {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    color: white;
+.btn-edit {
+    background: #f8fafc;
+    color: #334155;
+    border: 1px solid var(--border);
+    margin-bottom: 0.75rem;
 }
 
-.btn-ai-generate {
-    width: 100%;
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 6px;
-    margin-top: 1rem;
-    opacity: 0.6;
-    cursor: not-allowed;
+.btn-edit:hover { background: #f1f5f9; }
+
+.btn-delete {
+    background: white;
+    color: var(--danger);
+    border: 1px solid #fee2e2;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .project-grid-layout { grid-template-columns: 1fr; }
+.btn-delete:hover { background: #fef2f2; }
+
+/* Targeted Fix for Timeline Post Alignment */
+.post-header {
+    display: flex; /* Establish flex context */
+    justify-content: space-between; /* Pushes <h4> to the left and .post-actions to the far right */
+    align-items: center; /* Vertically centers the buttons with the text */
+    width: 100%; /* Ensures the header spans the full width of the card */
+    margin-bottom: 1rem;
+}
+
+.post-actions {
+    display: flex; /* Keeps buttons in a row */
+    gap: 0.75rem; /* Precise spacing between Edit and Delete */
+    flex-shrink: 0; /* Prevents buttons from squishing if the title is long */
+}
+
+/* Optional: Ensure long titles don't overlap buttons */
+.post-header h4 {
+    margin: 0;
+    padding-right: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.post-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.text-edit,
+.text-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
 }
