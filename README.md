@@ -10,25 +10,26 @@ Traditional portfolios show the finished product; OpenBuild shows the **evolutio
 - **Database:** SQLAlchemy (SQLite/PostgreSQL ready)
 - **Authentication:** Flask-Login & Bcrypt
 - **Markdown Engine:** Integrated Markdown parser for technical build logs
-- **Frontend:** Jinja2 Templates, Modern CSS3 (Grid & Flexbox Architecture)
+- **Frontend:** Jinja2 Templates, Modern CSS3 (Sticky Sidebar & Grid Architecture)
 
-## 📊 Project Status: MVP Development (Phase 3/4)
-The core infrastructure for private project management and chronological logging is now fully operational.
+## 📊 Project Status: MVP Development (Phase 4)
+The platform has evolved from a private tool into a community-centric discovery engine.
 
 ### ✅ Completed
 - **User Authentication:** Secure registration, login, and protected route management.
 - **Project Management:** Full CRUD functionality (Create, Read, Update, Delete) for developer projects.
 - **Timeline Engine:** A specialized "Journey Log" system allowing users to post updates with images and formatted text.
 - **Rich Text Support:** Full Markdown integration in build logs for code snippets and technical documentation.
-- **Advanced UI/UX:** A modern, responsive "Timeline" interface with vertical milestone tracking and optimized grid layouts.
+- **Community Feed:** A global discovery route displaying real-time project updates from the entire community.
+- **Data Pagination:** Efficiently handling high-volume logs with server-side pagination (10 updates per page).
+- **Sticky Dashboard:** A persistent left-sidebar navigation providing quick access to personal projects while browsing the global feed.
 
-### 🚧 Current Focus: Phase 4 (Home Feed)
-- **Public Feed:** Developing a global discovery route to display project updates from the entire community.
-- **Pagination & Sorting:** Implementing efficient data loading for high-volume build logs.
+### 🚧 Current Focus: Phase 5 (User Identity)
 - **User Profiles:** Expanding account settings to include developer bios and profile images.
+- **Avatar Integration:** Preparing profile media for future AI video generation.
 
 ## 🔮 Future Vision: AI Marketing Agent
-The platform is being architected to support an **AI Video Agent** that will parse your Markdown build logs to automatically generate 30-second "DevLog" reels and social media content of your progress.
+The platform is being architected to support an **AI Video Agent** (utilizing local models like **Ollama**) that will parse your Markdown build logs to automatically generate 30-second "DevLog" reels and social media content of your progress.
 
 ---
 *Built with ❤️ for the developer community.*
