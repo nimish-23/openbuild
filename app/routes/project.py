@@ -41,6 +41,7 @@ def view_projects():
     return render_template('projects.html', projects=user_projects)
 
 @project_bp.route('/project/<int:project_id>',methods=['GET','POST'])
+@login_required
 def project_details(project_id):
     project = Projects.query.get_or_404(project_id)
 

@@ -33,7 +33,7 @@ class Projects(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    posts = db.relationship('Posts',backref='project',lazy=True)
+    posts = db.relationship('Posts',backref='project', cascade="all, delete",lazy=True)
 
 class Posts(db.Model):
     __tablename__ = 'posts'
@@ -46,4 +46,5 @@ class Posts(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     image_file = db.Column(db.String(20), nullable=True)
+    author = db.relationship("Users", backref="posts")
 

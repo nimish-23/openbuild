@@ -35,7 +35,7 @@
 
             <div class="form-actions">
                 {{ form.submit(class="btn-submit", value="Update Project") }}
-                <a href="{{ url_for('project.project_details', id=project.id) }}" class="link-cancel">Cancel</a>
+                <a href="{{ url_for('project.project_details', project_id=project.id) }}" class="link-cancel">Cancel</a>
             </div>
         </form>
     </div>
