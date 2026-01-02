@@ -28,6 +28,20 @@
         {% endfor %}
       </div>
 
+      <div class="form-group">
+        {{form.post_type.label}} {{form.post_type(class="form-group")}}
+
+        <small class="form-text text-muted" style="margin-top: 4px">
+          <strong>INIT</strong> - Starting the project ·
+          <strong>FEATURE</strong> - New functionality · 
+          <strong>FIX</strong> - Bug fix · 
+          <strong>REFACTOR</strong> - Code cleanup ·
+          <strong>DEPLOY</strong> - Release or milestone ·
+          <strong>REFLECTION</strong> - Learnings & insights ·
+          <strong>UPDATE</strong> - General progress
+        </small>
+      </div>
+
       {% if post and post.image_file %}
       <div class="current-image">
         <p>Current image:</p>

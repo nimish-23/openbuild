@@ -3,31 +3,30 @@
 {% block title %}OpenBuild | Home{% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 {% endblock %}
 
 {% block content %}
+
+{% if current_user.is_authenticated %}
 <div class="home-layout-grid">
+
     <aside class="dashboard-sidebar">
         <div class="sticky-content">
-            {% if current_user.is_authenticated %}
-                <div class="user-card card">
-                    <span class="badge">Member</span>
-                    <h3>Welcome, {{ current_user.username }}</h3>
-                    <p class="user-email">{{ current_user.email }}</p>
-                    <hr>
-                    <div class="sidebar-actions">
-                        <a href="{{ url_for('project.view_projects') }}" class="btn-primary-alt">My Projects</a>
-                        <a href="{{ url_for('project.new_project') }}" class="btn-secondary-alt">+ New Build</a>
-                    </div>
+            <div class="user-card card">
+                <span class="badge">Member</span>
+                <h3>Welcome, {{ current_user.username }}</h3>
+                <p class="user-email">{{ current_user.email }}</p>
+                
+                <div class="sidebar-actions">
+                    <a href="{{ url_for('project.view_projects') }}" class="btn-dash btn-primary-dash">
+                        My Projects
+                    </a>
+                    <a href="{{ url_for('project.new_project') }}" class="btn-dash btn-outline-dash">
+                        + New Build
+                    </a>
                 </div>
-            {% else %}
-                <div class="guest-card card">
-                    <h2>Build in Public.</h2>
-                    <p>Document your journey and grow with the community.</p>
-                    <a href="{{ url_for('auth.register') }}" class="btn-primary">Join Now</a>
-                </div>
-            {% endif %}
+            </div>
             
             <div class="sidebar-footer">
                 <p>© 2025 OpenBuild</p>
@@ -36,14 +35,16 @@
     </aside>
 
     <main class="feed-main">
-        <div class="section-title">
+        <div class="section-title centered">
             <h2>Community Build Log</h2>
             <p>Real-time updates from builders globe</p>
         </div>
 
-        <div class="feed-list">
-            {% for post in posts.items %}
+        <div class="feed-scroll-area">
+            <div class="feed-list">
+                {% for post in posts.items %}
                 <article class="feed-card card">
+                    
                     <div class="feed-card-header">
                         <div class="user-meta">
                             <span class="username">@{{ post.author.username }}</span>
@@ -52,44 +53,62 @@
                                 {{ post.project.title }}
                             </a>
                         </div>
-                        <time class="post-time">{{ post.created_at.strftime('%b %d') }}</time>
+                        <time class="post-time">
+                            {{ post.created_at.strftime('%b %d') }}
+                        </time>
                     </div>
-
+            
                     <div class="feed-card-body">
                         <h4>{{ post.title }}</h4>
                         <div class="markdown-preview">
-                            {{ post.content | render_markdown | truncate(200) }}
+                            {{ post.content | render_markdown | truncate(250) }}
                         </div>
                         {% if post.image_file %}
                             <img src="{{ url_for('static', filename='uploads/' + post.image_file) }}" class="feed-img">
                         {% endif %}
                     </div>
-
+            
                     <div class="feed-card-footer">
                         <a href="{{ url_for('project.project_details', project_id=post.project_id) }}" class="view-thread">
                             View Full Journey →
                         </a>
                     </div>
                 </article>
-            {% else %}
+                {% else %}
                 <div class="empty-feed card">
                     <p>The feed is quiet... be the first to share an update!</p>
                 </div>
-            {% endfor %}
-        </div>
-
-        <nav class="pagination-container">
-            {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-                {% if page_num %}
-                    <a href="{{ url_for('home.view_home', page=page_num) }}" 
-                       class="page-link {{ 'active' if page_num == posts.page else '' }}">
-                        {{ page_num }}
-                    </a>
-                {% else %}
-                    <span class="page-dots">...</span>
+                {% endfor %}
+                {% if posts.has_next %}
+                <div 
+                    data-infinite-scroll="{{ url_for('home.view_home', page=posts.next_num) }}"
+                    style="height: 20px; margin: 20px 0; background: transparent;">
+                </div>
                 {% endif %}
-            {% endfor %}
-        </nav>
+            </div>
+        </div>
     </main>
+
 </div>
+
+{% else %}
+<main class="landing-hero">
+    <div class="hero-inner">
+        <h1>
+            <span class="bold">Build in Public.</span><br>
+            <span class="highlight">Grow together.</span>
+        </h1>
+        <p class="subtitle">
+            The platform for developers to document their journey, share updates,
+            and showcase their process to the world.
+        </p>
+        <a href="{{ url_for('auth.login') }}" class="cta-btn">
+             Create New Project
+        </a>
+        <p class="muted">Join a community of builders today.</p>
+        <p class="footer-note">© 2025 OpenBuild</p>
+    </div>
+</main>
+{% endif %}
+
 {% endblock %}

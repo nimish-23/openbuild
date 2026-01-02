@@ -43,4 +43,79 @@
     </footer>
 
 </body>
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+<script>
+    // Debug: Verify HTMX is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('HTMX loaded:', typeof htmx !== 'undefined');
+        if (typeof htmx !== 'undefined') {
+            console.log('HTMX version:', htmx.version);
+        }
+        
+        // Listen to all HTMX events for debugging
+        document.body.addEventListener('htmx:beforeRequest', function(event) {
+            console.log('[HTMX] Before Request:', event.detail);
+        });
+        
+        document.body.addEventListener('htmx:afterRequest', function(event) {
+            console.log('[HTMX] After Request:', event.detail);
+        });
+        
+        document.body.addEventListener('htmx:responseError', function(event) {
+            console.error('[HTMX] Response Error:', event.detail);
+        });
+        
+        document.body.addEventListener('htmx:swapError', function(event) {
+            console.error('[HTMX] Swap Error:', event.detail);
+        });
+        
+        // Setup Intersection Observer for infinite scroll
+        function setupInfiniteScroll() {
+            const sentinels = document.querySelectorAll('[data-infinite-scroll]');
+            console.log('Found sentinels:', sentinels.length);
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const sentinel = entry.target;
+                        const url = sentinel.getAttribute('data-infinite-scroll');
+                        console.log('Sentinel intersecting, loading:', url);
+                        
+                        // Trigger HTMX request
+                        htmx.ajax('GET', url, {
+                            target: sentinel,
+                            swap: 'afterend',
+                            headers: {'HX-Request': 'true'}
+                        }).then(() => {
+                            console.log('HTMX request completed');
+                            // Remove the old sentinel and setup new one
+                            observer.unobserve(sentinel);
+                            sentinel.remove();
+                            // Setup new sentinels that were just added
+                            setTimeout(setupInfiniteScroll, 100);
+                        }).catch(err => {
+                            console.error('HTMX request failed:', err);
+                        });
+                    }
+                });
+            }, {
+                rootMargin: '100px'
+            });
+            
+            sentinels.forEach(sentinel => {
+                observer.observe(sentinel);
+                console.log('Observing sentinel:', sentinel.getAttribute('data-infinite-scroll'));
+            });
+        }
+        
+        // Initialize on page load
+        setupInfiniteScroll();
+        
+        // Re-setup after HTMX swaps
+        document.body.addEventListener('htmx:afterSwap', function(event) {
+            console.log('HTMX swap completed, re-setting up infinite scroll');
+            setTimeout(setupInfiniteScroll, 100);
+        });
+    });
+</script>
 </html>

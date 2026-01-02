@@ -9,3 +9,5 @@ python-dotenv==1.0.1
 Pillow==10.4.0
 Markdown==3.10
 markdown2==2.5.0
+moviepy==1.0.3
+requests==2.31.0

@@ -4,80 +4,161 @@
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 80px);
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
     background-color: #f8fafc;
 }
 
-/* Card Styling: Matches Login/Register but slightly wider */
+/* Card Styling */
 form {
     background: #ffffff;
     width: 100%;
-    max-width: 550px; 
-    padding: 2rem;
+    max-width: 600px;
+    padding: 2.5rem;
     border-radius: 16px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
     border: 1px solid #e2e8f0;
+}
+
+/* Reset Fieldset default styles */
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
 }
 
 legend {
     font-size: 1.5rem;
-    font-weight: 800;
-    color: #1e40af; /* Consistent Deep Blue */
-    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 2rem;
     text-align: center;
-    border-bottom: none;
+    display: block;
+    width: 100%;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 1rem;
 }
 
 .form-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-group label {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    color: #475569;
-    margin-bottom: 0.4rem;
+    color: #334155;
+    margin-bottom: 0.5rem;
 }
 
-/* Input & Textarea Styling */
-.form-control {
+/* Inputs, Textareas, and Selects */
+.form-control, 
+select { 
     width: 100%;
     padding: 0.75rem 1rem;
-    font-size: 0.95rem;
+    font-size: 1rem;
     border: 1px solid #cbd5e1;
     border-radius: 8px;
-    background-color: #f8fafc;
+    background-color: #fff;
     transition: all 0.2s ease;
+    font-family: inherit;
+    color: #1e293b;
 }
 
-.form-control:focus {
+/* Specific styling for the Select Dropdown (Post Type) */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    cursor: pointer;
+}
+
+.form-control:focus, 
+select:focus {
     outline: none;
     border-color: #2563eb;
-    background-color: #ffffff;
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
-/* File Input Specifics */
-.form-control-file {
-    font-size: 0.85rem;
-    color: #64748b;
-    padding: 0.5rem 0;
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.5;
 }
 
-/* Button & Footer Actions */
-.form-actions {
-    margin-top: 1.5rem;
+/* Helper Text (The small INIT/FEATURE text) */
+.form-text {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: #64748b;
+    line-height: 1.6;
+    background: #f8fafc;
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #f1f5f9;
+}
+
+.form-text strong {
+    color: #334155;
+    font-weight: 700;
+}
+
+/* Image Upload Section */
+.form-control-file {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+}
+
+/* Current Image Preview Container */
+.current-image {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: #f1f5f9;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1;
     text-align: center;
+}
+
+.current-image p {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 0.75rem;
+}
+
+.current-image img {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 4px;
+    border-radius: 8px;
+}
+
+/* Validation Errors */
+.text-danger {
+    color: #ef4444;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    display: block;
+}
+
+/* Buttons */
+.form-actions {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .btn-primary {
     width: 100%;
     background-color: #2563eb;
     color: white;
-    padding: 0.8rem;
+    padding: 0.85rem;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 600;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -89,24 +170,33 @@ legend {
 }
 
 .form-footer {
-    margin-top: 1rem;
+    text-align: center;
 }
 
 .form-footer a {
-    font-size: 0.9rem;
-    text-decoration: none;
     color: #64748b;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
     transition: color 0.2s;
 }
 
 .form-footer a:hover {
-    color: #1e40af;
+    color: #0f172a;
+    text-decoration: underline;
 }
 
-/* Validation Errors */
-.text-danger {
-    color: #dc2626;
-    font-size: 0.75rem;
-    display: block;
-    margin-top: 0.3rem;
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .content-section {
+        padding: 1rem;
+    }
+    
+    form {
+        padding: 1.5rem;
+    }
+    
+    legend {
+        font-size: 1.25rem;
+    }
 }

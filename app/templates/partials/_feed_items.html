@@ -1,0 +1,40 @@
+{% for post in posts.items %}
+<article class="feed-card card">
+    
+    <div class="feed-card-header">
+        <div class="user-meta">
+            <span class="username">@{{ post.author.username }}</span>
+            <span class="action-muted">updated</span>
+            <a href="{{ url_for('project.project_details', project_id=post.project_id) }}" class="project-tag">
+                {{ post.project.title }}
+            </a>
+        </div>
+        <time class="post-time">
+            {{ post.created_at.strftime('%b %d') }}
+        </time>
+    </div>
+
+    <div class="feed-card-body">
+        <h4>{{ post.title }}</h4>
+        <div class="markdown-preview">
+            {{ post.content | render_markdown | truncate(250) }}
+        </div>
+        {% if post.image_file %}
+            <img src="{{ url_for('static', filename='uploads/' + post.image_file) }}" class="feed-img">
+        {% endif %}
+    </div>
+
+    <div class="feed-card-footer">
+        <a href="{{ url_for('project.project_details', project_id=post.project_id) }}" class="view-thread">
+            View Full Journey →
+        </a>
+    </div>
+</article>
+{% endfor %}
+{% if posts.has_next %}
+<div 
+    data-infinite-scroll="{{ url_for('home.view_home', page=posts.next_num) }}"
+    style="height: 20px; margin: 20px 0; background: transparent;">
+</div>
+{% endif %}
+

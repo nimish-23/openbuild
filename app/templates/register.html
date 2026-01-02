@@ -1,64 +1,70 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
-{% block title %}OpenBuild | Register{% endblock %} 
+{% block title %}OpenBuild | Register{% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}" />
-{% endblock %} 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+{% endblock %}
 
 {% block content %}
+
 <div class="content-section">
   <form action="{{ url_for('auth.register') }}" method="POST">
     {{ form.hidden_tag() }}
-    
-    <fieldset class="form-group">
+
+    <fieldset>
       <legend>Join OpenBuild</legend>
 
+      <!-- Username -->
       <div class="form-row">
-        <div class="form-group">
-          {{ form.username.label }} 
-          {{ form.username(class="form-control") }} 
-          {% for error in form.username.errors %}
-            <span class="text-danger">{{ error }}</span>
-          {% endfor %}
-        </div>
-
-        <div class="form-group">
-          {{ form.email.label }} 
-          {{ form.email(class="form-control") }} 
-          {% for error in form.email.errors %}
-            <span class="text-danger">{{ error }}</span>
-          {% endfor %}
-        </div>
+        {{ form.username.label }}
+        {{ form.username(class="form-control") }}
+        {% for error in form.username.errors %}
+          <span class="text-danger">{{ error }}</span>
+        {% endfor %}
       </div>
 
+      <!-- Email -->
       <div class="form-row">
-        <div class="form-group">
-          {{ form.password.label }} 
-          {{ form.password(class="form-control") }}
-          {% for error in form.password.errors %}
-            <span class="text-danger">{{ error }}</span>
-          {% endfor %}
-        </div>
-
-        <div class="form-group">
-          {{ form.confirm_password.label }} 
-          {{ form.confirm_password(class="form-control") }}
-          {% for error in form.confirm_password.errors %}
-            <span class="text-danger">{{ error }}</span>
-          {% endfor %}
-        </div>
+        {{ form.email.label }}
+        {{ form.email(class="form-control") }}
+        {% for error in form.email.errors %}
+          <span class="text-danger">{{ error }}</span>
+        {% endfor %}
       </div>
+
+      <!-- Password -->
+      <div class="form-row">
+        {{ form.password.label }}
+        {{ form.password(class="form-control") }}
+        {% for error in form.password.errors %}
+          <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-row">
+        {{ form.confirm_password.label }}
+        {{ form.confirm_password(class="form-control") }}
+        {% for error in form.confirm_password.errors %}
+          <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+      </div>
+
+      <!-- Button -->
+      <button type="submit">
+        Create Account
+      </button>
+
+      <hr class="hr-line">
+
+      <p class="auth-switch">
+        Already have an account?
+        <a href="{{ url_for('auth.login') }}">Login</a>
+      </p>
+
     </fieldset>
-
-    <div class="form-actions">
-        {{ form.submit(class="btn-primary") }}
-        <div class="form-footer">
-            <small class="text-muted">
-                Already have an account? <a href="{{ url_for('auth.login') }}">Login</a>
-            </small>
-        </div>
-    </div>
   </form>
 </div>
+
 {% endblock %}

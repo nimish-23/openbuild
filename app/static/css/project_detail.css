@@ -1,129 +1,131 @@
-/* 1. Global Variables & Base Reset */
-:root {
-    --primary: #2563eb;
-    --primary-hover: #1d4ed8;
-    --indigo: #4f46e5;
-    --indigo-hover: #3730a3;
-    --danger: #ef4444;
-    --danger-hover: #b91c1c;
-    --bg-main: #f8fafc;
-    --card-bg: #ffffff;
-    --text-main: #0f172a;
-    --text-muted: #64748b;
-    --border: #e2e8f0;
-    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --radius: 16px;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    line-height: 1.5;
-}
-
-/* 2. Layout Structure */
+/* --- Global Container --- */
 .project-view-container {
-    max-width: 1100px;
-    margin: 3rem auto;
+    max-width: 1200px;
+    margin: 2rem auto;
     padding: 0 1.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-.project-grid-layout {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 2.5rem;
-}
-
-@media (max-width: 850px) {
-    .project-grid-layout {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* 3. Header Section */
+/* --- Header Section --- */
 .project-header {
     margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .title-area {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1rem;
     margin-bottom: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .title-area h1 {
     font-size: 2.25rem;
-    font-weight: 800;
-    color: var(--text-main);
-}
-
-.status-badge {
-    padding: 0.35rem 0.85rem;
-    border-radius: 99px;
-    font-size: 0.75rem;
+    color: #0f172a;
+    margin: 0;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
+    line-height: 1.2;
 }
 
-.status-badge.in_progress { background: #dcfce7; color: #166534; }
-.status-badge.completed { background: #dbeafe; color: #1e40af; }
+.header-meta {
+    display: flex;
+    gap: 2rem;
+    margin-top: 0.5rem;
+}
 
 .meta-info {
-    color: var(--text-muted);
-    font-size: 0.95rem;
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
 }
 
-/* 4. Global Card Styling */
+/* Status Badge */
+.status-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.35rem 0.8rem;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-block;
+}
+.status-badge.in_progress { background: #dcfce7; color: #15803d; }
+.status-badge.completed { background: #dbeafe; color: #1e40af; }
+.status-badge.ideation { background: #f3e8ff; color: #7e22ce; }
+.status-badge.launched { background: #ffedd5; color: #c2410c; }
+
+/* --- Grid Layout (The Fix for Alignment) --- */
+.project-grid-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* 2/3 Main, 1/3 Sidebar */
+    gap: 2.5rem;
+    align-items: start; /* Ensures top alignment */
+}
+
+/* --- Common Card Styling --- */
 .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.75rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
     margin-bottom: 1.5rem;
-    box-shadow: var(--shadow);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    transition: box-shadow 0.2s ease;
 }
 
-.card h3 {
-    font-size: 1.1rem;
-    color: var(--text-main);
+.card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.card h3, .card h4 {
+    color: #1e293b;
+    margin-top: 0;
     margin-bottom: 1rem;
+    font-size: 1.15rem;
+    font-weight: 600;
 }
 
-/* 5. Build Log & Timeline Logic */
+/* --- Timeline Section --- */
 .section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.section-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
 }
 
 .btn-sm {
-    background: var(--primary);
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border-radius: 10px;
-    font-size: 0.85rem;
+    background: #eff6ff;
+    color: #2563eb;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
     font-weight: 600;
+    font-size: 0.85rem;
     text-decoration: none;
-    transition: background 0.2s ease;
+    transition: all 0.2s;
 }
 
-.btn-sm:hover { background: var(--primary-hover); }
+.btn-sm:hover {
+    background: #dbeafe;
+    transform: translateY(-1px);
+}
 
+/* Timeline Logic */
 .timeline-container {
-    border-left: 2px solid var(--border);
-    padding-left: 2rem;
-    margin-left: 0.75rem;
     position: relative;
+    padding-left: 2rem;
+    /* Create the continuous vertical line */
+    border-left: 2px solid #e2e8f0;
 }
 
 .timeline-item {
@@ -131,205 +133,298 @@ body {
     margin-bottom: 3rem;
 }
 
+/* The Dot */
 .timeline-item::before {
     content: '';
     position: absolute;
-    left: calc(-2rem - 9px);
-    top: 6px;
+    left: -2.6rem; /* Adjust to sit exactly on the line */
+    top: 0.2rem;
     width: 14px;
     height: 14px;
-    background: var(--primary);
-    border: 3px solid white;
+    background: #ffffff;
+    border: 3px solid #3b82f6;
     border-radius: 50%;
-    box-shadow: 0 0 0 2px var(--border);
-    z-index: 2;
+    z-index: 1;
 }
 
-/* 6. Post Content & Actions */
 .post-header {
     display: flex;
-    justify-content: space-between; /* Perfect Horizontal Alignment */
-    align-items: center;
-    margin-bottom: 1rem;
-    width: 100%;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.75rem;
 }
 
 .post-header h4 {
     margin: 0;
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: #1e293b;
+    font-size: 1.1rem;
+    color: #0f172a;
 }
 
-.post-actions {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.text-edit, .text-delete {
-    font-size: 0.85rem;
-    font-weight: 600;
+.post-actions a, .post-actions button {
+    font-size: 0.8rem;
+    margin-left: 0.75rem;
     text-decoration: none;
-    padding: 6px 12px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    background: transparent;
+    background: none;
     border: none;
+    padding: 0;
     cursor: pointer;
+    font-weight: 500;
 }
 
-.text-edit {
-    color: var(--indigo);
-}
+.text-edit { color: #64748b; transition: color 0.2s; }
+.text-edit:hover { color: #3b82f6; }
 
-.text-edit:hover {
-    background-color: #eef2ff;
-    color: var(--indigo-hover);
-}
-
-.text-delete {
-    color: var(--danger);
-}
-
-.text-delete:hover {
-    background-color: #fef2f2;
-    color: var(--danger-hover);
-}
+.text-delete { color: #ef4444; transition: color 0.2s; }
+.text-delete:hover { color: #dc2626; }
 
 .markdown-body {
-    font-size: 1rem;
-    color: #475569;
+    color: #334155;
     line-height: 1.6;
+    font-size: 0.95rem;
 }
 
+/* --- Updated Image Styling for Professional Look --- */
 .post-img {
-    width: 100%;
-    border-radius: 12px;
-    margin: 1.25rem 0;
-    border: 1px solid var(--border);
-    object-fit: cover;
+    display: block; /* Ensures proper spacing */
+    max-width: 100%;
+    border-radius: 10px; /* Slightly rounder corners */
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    /* A darker, clearer border */
+    border: 1px solid #cbd5e1;
+    /* A professional shadow to add depth so it pops off the card */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    /* Ensures transparent images look clean */
+    background-color: #ffffff;
 }
 
 .post-footer {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #94a3b8;
 }
 
-/* 7. Sidebar & AI Card Styling */
+/* --- Sidebar (Sticky & Professional) --- */
+.project-sidebar {
+    /* STICKY MAGIC: Keeps sidebar visible while scrolling logs */
+    position: sticky;
+    top: 2rem; 
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* AI Card - Dark Theme Pop */
 .ai-preview-card {
     background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
     color: white;
     border: none;
+    position: relative;
+    overflow: hidden;
 }
 
-.ai-preview-card h4 { color: #f8fafc; margin-bottom: 0.5rem; }
+.ai-preview-card h4 {
+    color: #f8fafc;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.small-text {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+}
+
+/* Script Box */
+.script-box {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    max-height: 180px;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace; /* Code font */
+}
+
+.script-content {
+    font-size: 0.8rem;
+    color: #e2e8f0;
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+/* Buttons inside Sidebar */
+.btn-copy-script {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e2e8f0;
+    padding: 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    transition: all 0.2s;
+}
+
+.btn-copy-script:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
 
 .btn-ai-generate {
     width: 100%;
-    padding: 0.8rem;
-    background: var(--primary);
+    background: #3b82f6; /* Bright Blue */
     color: white;
     border: none;
-    border-radius: 10px;
-    margin-top: 1rem;
-    font-weight: 700;
-    cursor: not-allowed;
-    opacity: 0.6;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
+.btn-ai-generate:hover {
+    background: #2563eb;
+}
+
+/* Details Card Styling */
 .detail-item {
     margin-bottom: 1.5rem;
 }
 
 .detail-item label {
     display: block;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #94a3b8;
     text-transform: uppercase;
-    margin-bottom: 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .tag {
-    display: inline-block;
     background: #f1f5f9;
     color: #475569;
-    padding: 0.3rem 0.7rem;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    margin: 0.25rem 0.25rem 0.25rem 0;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid #e2e8f0;
 }
 
 .external-link {
-    font-size: 0.9rem;
-    color: var(--primary);
+    color: #2563eb;
     text-decoration: none;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
 }
+.external-link:hover { text-decoration: underline; }
 
 /* Management Buttons */
+.actions-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+}
+
+.actions-card h4 {
+    display: none; /* Hide header for cleaner look */
+}
+
 .btn-edit, .btn-delete {
-    display: block;
     width: 100%;
-    text-align: center;
     padding: 0.75rem;
-    border-radius: 12px;
-    font-size: 0.9rem;
+    border-radius: 8px;
+    text-align: center;
     font-weight: 600;
+    font-size: 0.9rem;
     text-decoration: none;
-    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
 }
 
 .btn-edit {
-    background: #f8fafc;
-    color: #334155;
-    border: 1px solid var(--border);
-    margin-bottom: 0.75rem;
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #475569;
 }
 
-.btn-edit:hover { background: #f1f5f9; }
+.btn-edit:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
 
 .btn-delete {
-    background: white;
-    color: var(--danger);
-    border: 1px solid #fee2e2;
+    background: #fff1f2;
+    color: #e11d48;
 }
 
-.btn-delete:hover { background: #fef2f2; }
-
-/* Targeted Fix for Timeline Post Alignment */
-.post-header {
-    display: flex; /* Establish flex context */
-    justify-content: space-between; /* Pushes <h4> to the left and .post-actions to the far right */
-    align-items: center; /* Vertically centers the buttons with the text */
-    width: 100%; /* Ensures the header spans the full width of the card */
-    margin-bottom: 1rem;
+.btn-delete:hover {
+    background: #ffe4e6;
+    color: #be123c;
 }
 
-.post-actions {
-    display: flex; /* Keeps buttons in a row */
-    gap: 0.75rem; /* Precise spacing between Edit and Delete */
-    flex-shrink: 0; /* Prevents buttons from squishing if the title is long */
+/* --- Post Type Badges --- */
+.post-meta-bar {
+    margin-bottom: 1rem; /* Space between badge and content */
 }
 
-/* Optional: Ensure long titles don't overlap buttons */
-.post-header h4 {
-    margin: 0;
-    padding-right: 1rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.type-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
-.post-actions {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
+/* Color Coding for Post Types */
+.type-badge.init { background-color: #3b82f6; }       /* Blue */
+.type-badge.feature { background-color: #10b981; }    /* Emerald Green */
+.type-badge.fix { background-color: #ef4444; }        /* Red */
+.type-badge.refactor { background-color: #8b5cf6; }   /* Purple */
+.type-badge.deploy { background-color: #f59e0b; }     /* Amber/Gold */
+.type-badge.reflection { background-color: #06b6d4; } /* Cyan */
+.type-badge.update { background-color: #64748b; }     /* Slate Gray */
 
-.text-edit,
-.text-delete {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 32px;
+/* --- Mobile Responsiveness --- */
+@media (max-width: 900px) {
+    .project-grid-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .timeline-container {
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .timeline-item::before {
+        display: none; /* Hide dots on mobile for cleaner look */
+    }
+    
+    .project-sidebar {
+        position: static; /* Unstick on mobile */
+    }
 }

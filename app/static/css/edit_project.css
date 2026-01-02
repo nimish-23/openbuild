@@ -15,7 +15,8 @@
     padding: 2.5rem;
     border-radius: 16px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-    border-top: 5px solid #0f172a; /* Darker accent for Edit Mode */
+    /* Dark top border to distinguish Edit mode from Create mode */
+    border-top: 5px solid #0f172a; 
 }
 
 /* Typography */
@@ -60,12 +61,24 @@ h2 {
     background-color: #fff;
     transition: all 0.2s ease;
     color: #1e293b;
+    font-family: inherit;
+}
+
+/* Specific styling for the Description Textarea */
+textarea.form-control {
+    resize: vertical; /* Prevents breaking layout horizontally */
+    min-height: 120px;
+    line-height: 1.5;
 }
 
 .form-control:focus {
     outline: none;
     border-color: #2563eb;
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.form-control::placeholder {
+    color: #94a3b8; /* Light gray for placeholders */
 }
 
 /* Grid for Status/Date */
@@ -110,6 +123,7 @@ h2 {
     text-decoration: none;
     font-weight: 500;
     font-size: 0.95rem;
+    transition: color 0.2s ease;
 }
 
 .link-cancel:hover {
@@ -120,7 +134,7 @@ h2 {
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
     .form-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack Status/Date on mobile */
     }
     
     .form-card {
@@ -128,8 +142,17 @@ h2 {
     }
     
     .form-actions {
-        flex-direction: column-reverse;
-        align-items: stretch;
+        flex-direction: column-reverse; /* Stack buttons, Submit on top */
+        gap: 1rem;
+    }
+
+    .btn-submit {
+        width: 100%;
+    }
+
+    .link-cancel {
+        display: block;
+        padding: 0.5rem;
         text-align: center;
     }
 }

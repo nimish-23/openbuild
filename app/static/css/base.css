@@ -29,12 +29,18 @@ body {
 }
 
 .navbar .container {
+    width: 100%;
+    max-width: none;
+    padding: 0 3rem;          /* ← clean desktop spacing */
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+
+
 .logo {
+    margin-right: 3rem;
     font-size: 1.5rem;
     font-weight: 700;
     color: #ffffff;

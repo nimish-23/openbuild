@@ -1,109 +1,205 @@
-{% extends "base.html" %}
-
-{% block title %} {{ project.title }} | OpenBuild {% endblock %}
-
-{% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/project_detail.css') }}" />
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %} {{ project.title }} | OpenBuild {%
+endblock %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/project_detail.css') }}"
+/>
+{% endblock %} {% block content %}
 <div class="project-view-container">
-    <header class="project-header">
-        <div class="title-area">
-            <h1>{{ project.title }}</h1>
-            <span class="status-badge {{ project.status|lower }}">{{ project.status.replace('_', ' ') }}</span>
-        </div>
-        <p class="meta-info">Created on {{ project.created_at.strftime('%B %d, %Y') }}</p>
-    </header>
-
-    <div class="project-grid-layout">
-        <main class="project-main">
-            <section class="card">
-                <h3>About the Project</h3>
-                <p>{{ project.description }}</p>
-            </section>
-
-            <section class="card timeline-section">
-                <div class="section-header">
-                    <h3>Build Log / Timeline</h3>
-                    <a href="{{ url_for('post.post_new', project_id=project.id) }}" class="btn-sm">+ New Update</a>
-                </div>
-                
-                <div class="timeline-container">
-                    {% if project.posts %}
-                        {% for post in project.posts|sort(attribute='created_at', reverse=True) %}
-                        <div class="timeline-item">
-                            <div class="timeline-content">
-                                <div class="post-header">
-                                    <h4>{{ post.title }}</h4>
-                                    <div class="post-actions">
-                                        <a href="{{ url_for('post.post_edit', post_id=post.id) }}" class="text-edit">Edit</a>
-                                        <form action="{{ url_for('post.post_delete', post_id=post.id) }}" method="POST" style="display:inline;">
-                                            <button type="submit" class="text-delete" onclick="return confirm('Delete this update?')">Delete</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                
-                                <div class="markdown-body">
-                                    {{ post.content | render_markdown }}
-                                </div>
-
-                                {% if post.image_file %}
-                                    <img src="{{ url_for('static', filename='uploads/' + post.image_file) }}" class="post-img">
-                                {% endif %}
-                                <div class="post-footer">
-                                    <small class="text-muted">Logged on {{ post.created_at.strftime('%Y-%m-%d') }}</small>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    {% else %}
-                        <div class="empty-timeline">
-                            <p>No updates yet. Start sharing your progress!</p>
-                        </div>
-                    {% endif %}
-                </div>
-            </section>
-        </main>
-
-        <aside class="project-sidebar">
-            <div class="card ai-preview-card">
-                <h4>AI Marketing Agent</h4>
-                <p class="small-text">Transform this journey into a 30s Reel.</p>
-                <button class="btn-ai-generate" disabled title="Phase 8 Feature">🎬 Generate Reel</button>
-            </div>
-
-            <div class="card">
-                <h4>Details</h4>
-                <div class="detail-item">
-                    <label>Tech Stack</label>
-                    <div class="tags">
-                        {% if project.tech_stack %}
-                            {% for tech in project.tech_stack.split(',') %}
-                                <span class="tag">{{ tech.strip() }}</span>
-                            {% endfor %}
-                        {% else %}
-                            <span class="muted">No stack specified</span>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {% if project.repo_url %}
-                <div class="detail-item">
-                    <label>Links</label>
-                    <a href="{{ project.repo_url }}" target="_blank" class="external-link">GitHub Repository ↗</a>
-                </div>
-                {% endif %}
-            </div>
-
-            <div class="card actions-card">
-                <h4>Management</h4>
-                <a href="{{ url_for('project.project_edit', project_id=project.id) }}" class="btn-edit">Edit Project</a>
-                <form action="{{ url_for('project.project_delete', project_id=project.id) }}" method="POST" style="margin-top: 10px;">
-                    <button type="submit" class="btn-delete" onclick="return confirm('Are you sure?')">Delete Project</button>
-                </form>
-            </div>
-        </aside>
+  <header class="project-header">
+    <div class="title-area">
+      <h1>{{ project.title }}</h1>
+      <span class="status-badge {{ project.status|lower }}">
+        {{ project.status.replace('_', ' ') }}
+      </span>
     </div>
+    <div class="header-meta">
+      <p class="meta-info">
+        Created: {{ project.created_at.strftime('%B %d, %Y') }}
+      </p>
+      {% if project.start_date %}
+      <p class="meta-info">
+        Started: {{ project.start_date.strftime('%B %d, %Y') }}
+      </p>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="project-grid-layout">
+    <main class="project-main">
+      <section class="card">
+        <h3>About the Project</h3>
+        <p>{{ project.description }}</p>
+      </section>
+
+      <section class="card timeline-section">
+        <div class="section-header">
+          <h3>Build Log / Timeline</h3>
+          <a
+            href="{{ url_for('post.post_new', project_id=project.id) }}"
+            class="btn-sm"
+          >
+            + New Update
+          </a>
+        </div>
+
+        <div class="timeline-container">
+          {% if project.posts %} {% for post in
+          project.posts|sort(attribute='created_at', reverse=True) %}
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="post-header">
+                <h4>{{ post.title }}</h4>
+                <div class="post-actions">
+                  <a
+                    href="{{ url_for('post.post_edit', post_id=post.id) }}"
+                    class="text-edit"
+                  >
+                    Edit
+                  </a>
+                  <form
+                    action="{{ url_for('post.post_delete', post_id=post.id) }}"
+                    method="POST"
+                    style="display: inline"
+                  >
+                    <button
+                      type="submit"
+                      class="text-delete"
+                      onclick="return confirm('Delete this update?')"
+                    >
+                      Delete
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+              {% if post.post_type %}
+              <div class="post-meta-bar">
+                <span class="type-badge {{ post.post_type|lower }}">
+                  {{ post.post_type }}
+                </span>
+              </div>
+              {% endif %}
+
+              <div class="markdown-body">
+                {{ post.content | render_markdown }}
+              </div>
+
+              {% if post.image_file %}
+              <img
+                src="{{ url_for('static', filename='uploads/' + post.image_file) }}"
+                class="post-img"
+              />
+              {% endif %}
+              <div class="post-footer">
+                <small class="text-muted">
+                  Logged on {{ post.created_at.strftime('%Y-%m-%d') }}
+                </small>
+              </div>
+            </div>
+          </div>
+          {% endfor %} {% else %}
+          <div class="empty-timeline">
+            <p>No updates yet. Start sharing your progress!</p>
+          </div>
+          {% endif %}
+        </div>
+      </section>
+    </main>
+
+    <aside class="project-sidebar">
+      <div class="card ai-preview-card">
+        <h4>AI Script Director</h4>
+        <p class="small-text">
+          Generate optimized prompts for video models (Veo, Sora, Runway) based
+          on your logs.
+        </p>
+
+        {% if ai_script %}
+        <div class="script-box">
+          <div class="script-content" id="aiScriptText">{{ ai_script }}</div>
+        </div>
+        <button class="btn-copy-script" onclick="copyScript()">
+          📋 Copy Prompts
+        </button>
+
+        <script>
+          function copyScript() {
+            const text = document.getElementById("aiScriptText").innerText;
+            navigator.clipboard.writeText(text).then(() => {
+              alert("Prompts copied to clipboard!");
+            });
+          }
+        </script>
+        {% endif %}
+
+        <form
+          action="{{ url_for('project.generate_ai_script', project_id=project.id) }}"
+          method="POST"
+          style="margin: 0"
+        >
+          <button
+            type="submit"
+            class="btn-ai-generate"
+            title="Generate video prompts from your build log"
+          >
+            {% if ai_script %}🔄 Regenerate Prompts{% else %}✨ Generate
+            Prompts{% endif %}
+          </button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h4>Details</h4>
+        <div class="detail-item">
+          <label>Tech Stack</label>
+          <div class="tags">
+            {% if project.tech_stack %} {% for tech in
+            project.tech_stack.split(',') %}
+            <span class="tag">{{ tech.strip() }}</span>
+            {% endfor %} {% else %}
+            <span class="muted">No stack specified</span>
+            {% endif %}
+          </div>
+        </div>
+
+        {% if project.repo_url %}
+        <div class="detail-item">
+          <label>Links</label>
+          <a
+            href="{{ project.repo_url }}"
+            target="_blank"
+            class="external-link"
+          >
+            GitHub Repository ↗
+          </a>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="card actions-card">
+        <h4>Management</h4>
+        <a
+          href="{{ url_for('project.project_edit', project_id=project.id) }}"
+          class="btn-edit"
+        >
+          Edit Project
+        </a>
+        <form
+          action="{{ url_for('project.project_delete', project_id=project.id) }}"
+          method="POST"
+          style="margin-top: 10px"
+        >
+          <button
+            type="submit"
+            class="btn-delete"
+            onclick="return confirm('Are you sure?')"
+          >
+            Delete Project
+          </button>
+        </form>
+      </div>
+    </aside>
+  </div>
 </div>
 {% endblock %}

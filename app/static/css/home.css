@@ -1,33 +1,129 @@
-/* Layout Engine */
-.home-layout-grid {
-    display: grid;
-    grid-template-columns: 300px 1fr; /* Sidebar fixed width, feed takes rest */
-    gap: 2.5rem;
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1.5rem;
-    align-items: start;
+/* =========================================================
+   1. GLOBAL & LAYOUT RESET
+   ========================================================= */
+   html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden; /* Prevents the main window from scrolling */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #f8fafc;
+    color: #0f172a;
 }
 
-/* Sticky Sidebar Logic */
-.dashboard-sidebar {
-    position: sticky;
-    top: 2rem; /* Keeps sidebar fixed 2rem from the top */
-    height: fit-content;
+/* =========================================================
+   2. GUEST LANDING VIEW
+   ========================================================= */
+.landing-hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: radial-gradient(circle at top right, #eff6ff, #f8fafc);
+    text-align: center;
+}
+
+.hero-inner {
+    max-width: 720px;
+    padding: 2rem;
+}
+
+.hero-inner h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.bold { font-weight: 900; color: #0f172a; }
+.highlight { color: #2563eb; font-weight: 900; }
+
+.subtitle {
+    font-size: 1.25rem;
+    color: #475569;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+.cta-btn {
+    text-decoration: none;
+    background: #2563eb;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 700;
+    display: inline-block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35);
+}
+
+/* =========================================================
+   3. LOGGED-IN DASHBOARD LAYOUT
+   ========================================================= */
+/* =========================================================
+   3. LOGGED-IN DASHBOARD LAYOUT
+   ========================================================= */
+.home-layout-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr; /* Fixed sidebar width */
+    
+    /* UPDATED: Tighter height calculation */
+    height: calc(100vh - 65px); 
+    width: 100%;
+    
+    /* UPDATED: Top padding removed (0) to minimize gap */
+    padding: 0 1rem 1rem 1rem; 
+    
+    gap: 1rem;
+    background-color: #f8fafc;
+    
+    /* Ensure no margin pushes it down */
+    margin-top: 0.25rem; 
 }
 
 /* Sidebar Styling */
-.card {
-    background: white;
+.dashboard-sidebar {
+    background: #ffffff;
     border: 1px solid #e2e8f0;
+    padding: 1.5rem 1.5rem 2rem 1.5rem;
+    
+    /* Sidebar fills the available grid height */
+    height: 100%; 
+    
     border-radius: 16px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
 }
 
-.user-card h3 { margin: 0.5rem 0; color: #0f172a; }
-.user-email { font-size: 0.85rem; color: #64748b; margin-bottom: 1rem; }
+.user-card.card {
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 16px;
+    padding: 1.5rem;
+}
 
+.badge {
+    background: #dcfce7;
+    color: #15803d;
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.user-email {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+/* Sidebar Actions (Buttons) */
 .sidebar-actions {
     display: flex;
     flex-direction: column;
@@ -35,83 +131,198 @@
     margin-top: 1rem;
 }
 
-.btn-primary-alt, .btn-secondary-alt {
+.btn-dash {
     text-align: center;
-    padding: 0.75rem;
-    border-radius: 10px;
     text-decoration: none;
+    padding: 0.8rem;
+    border-radius: 10px;
     font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.2s;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
 }
 
-.btn-primary-alt { background: #0f172a; color: white; }
-.btn-secondary-alt { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+.btn-primary-dash {
+    background: #1e293b;
+    color: #ffffff !important;
+}
 
-/* Feed Styling */
+.btn-primary-dash:hover {
+    background: #0f172a;
+    transform: translateY(-1px);
+}
+
+.btn-outline-dash {
+    background: #ffffff;
+    color: #475569 !important;
+    border: 1px solid #e2e8f0;
+}
+
+.btn-outline-dash:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f1f5f9;
+    text-align: center;
+}
+
+.sidebar-footer p {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.sticky-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* =========================================================
+   4. COMMUNITY FEED AREA
+   ========================================================= */
 .feed-main {
-    max-width: 750px;
+    display: flex;
+    flex-direction: column;
+    
+    /* Fill grid height */
+    height: 100%; 
+    
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
 }
 
-.section-title { margin-bottom: 2rem; }
-.section-title h2 { font-size: 1.75rem; color: #0f172a; }
+/* Fixed Centered Header */
+.section-title.centered {
+  text-align: center;
+  padding: 1.5rem 1rem 1rem 1rem; 
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+  flex-shrink: 0; 
+}
 
-.feed-card { margin-bottom: 2rem; }
+.section-title h2 {
+  margin: 0; 
+  font-size: 1.4rem; 
+  font-weight: 800;
+}
+
+.section-title p {
+  color: #64748b;
+  margin: 0.2rem 0 0; 
+  font-size: 0.85rem; 
+}
+
+/* Scrollable Feed List */
+.feed-scroll-area {
+    flex-grow: 1;
+    overflow-y: auto; 
+    padding: 1.5rem 1.5rem 4rem 1.5rem; 
+    background-color: #f8fafc;
+}
+
+.feed-list {
+    max-width: 850px; 
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-bottom: 3rem; 
+}
+
+/* Post Cards */
+.feed-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: box-shadow 0.2s ease;
+}
+
+.feed-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+}
+
 .feed-card-header {
     display: flex;
     justify-content: space-between;
-    font-size: 0.85rem;
+    align-items: center;
     margin-bottom: 1rem;
 }
 
-.username { font-weight: 700; color: #0f172a; }
-.project-tag { 
-    background: #eff6ff; 
-    color: #2563eb; 
-    padding: 2px 8px; 
-    border-radius: 6px; 
-    text-decoration: none; 
+.username { font-weight: 700; color: #1e293b; }
+.project-tag {
+    text-decoration: none;
+    color: #2563eb;
     font-weight: 600;
+    margin-left: 0.5rem;
 }
 
+.post-time { font-size: 0.85rem; color: #94a3b8; }
+
+.feed-card-body h4 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.25rem;
+}
+
+/* Image Styling */
 .feed-img {
     width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    margin-top: 1.5rem; 
     border-radius: 12px;
-    margin-top: 1rem;
-    border: 1px solid #f1f5f9;
+    border: 1px solid #cbd5e1; 
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff; 
 }
 
 .view-thread {
-    color: #6366f1;
-    font-weight: 600;
+    display: inline-block;
+    margin-top: 1rem;
     text-decoration: none;
+    color: #2563eb;
+    font-weight: 700;
+    font-size: 0.9rem;
 }
 
-/* Pagination */
+/* =========================================================
+   5. PAGINATION
+   ========================================================= */
 .pagination-container {
+    padding: 3rem 0;
     display: flex;
     justify-content: center;
     gap: 0.5rem;
-    margin-top: 2rem;
 }
 
 .page-link {
-    padding: 8px 16px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
     text-decoration: none;
-    color: #475569;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+    font-weight: 600;
 }
 
-.page-link.active { background: #2563eb; color: white; }
+.page-link.active {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+}
 
-/* Responsive */
-@media (max-width: 900px) {
-    .home-layout-grid {
-        grid-template-columns: 1fr;
-    }
-    .dashboard-sidebar {
-        position: static;
-        margin-bottom: 2rem;
-    }
+/* Custom Scrollbar */
+.feed-scroll-area::-webkit-scrollbar { width: 8px; }
+.feed-scroll-area::-webkit-scrollbar-track { background: transparent; }
+.feed-scroll-area::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
 }

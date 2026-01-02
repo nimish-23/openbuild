@@ -47,7 +47,8 @@ def post_new(project_id):
             content=form.content.data,
             image_file=image_file,
             project_id=project.id,
-            user_id=current_user.id
+            user_id=current_user.id,
+            post_type=form.post_type.data
         )
 
         db.session.add(new_post)
@@ -73,6 +74,7 @@ def post_edit(post_id):
         # Directly update fields without redundant title checks
         post.title = form.title.data
         post.content = form.content.data
+        post.post_type = form.post_type.data
 
         # Handle image update if a new one is provided
         if form.image.data:
@@ -86,6 +88,7 @@ def post_edit(post_id):
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
+        form.post_type.data = post.post_type
         
 
     return render_template('create_post.html', title='Edit Update', form=form, project=post.project)

@@ -33,6 +33,9 @@ class Projects(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    tech_stack = db.Column(db.String(225))
+    repo_url = db.Column(db.String(225))
+
     posts = db.relationship('Posts',backref='project', cascade="all, delete",lazy=True)
 
 class Posts(db.Model):
@@ -43,6 +46,7 @@ class Posts(db.Model):
     project_id = db.Column(db.Integer,db.ForeignKey('projects.id'),nullable=False)
     title = db.Column(db.String(100),nullable=False)
     content = db.Column(db.Text,nullable=False)
+    post_type = db.Column(db.String(100),default='UPDATE')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     image_file = db.Column(db.String(20), nullable=True)

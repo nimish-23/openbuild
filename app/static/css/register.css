@@ -1,151 +1,139 @@
-/* Container: Prevents overflow and centers the card */
-.content-section {
+/* ---------- Page Base ---------- */
+body {
+    background: #f8fafc;
+  }
+  
+  /* ---------- Page Container ---------- */
+  .content-section {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 80px); /* Adjusts for Navbar height */
-    padding: 1rem;
-    background-color: #f8fafc;
-    overflow: hidden; /* Prevents container-level scroll */
-}
-
-/* Compact Form Card */
-form {
+    min-height: calc(100vh - 80px);
+    padding: 2rem 1rem;
+  }
+  
+  /* ---------- Card ---------- */
+  form {
     background: #ffffff;
     width: 100%;
-    max-width: 600px; /* Wider to support side-by-side columns */
-    padding: 1.5rem 2rem;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e2e8f0;
-}
-
-/* Compact Typography */
-legend {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 1.25rem;
+    max-width: 560px;
+    padding: 2.2rem;
+    border-radius: 18px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* ---------- Title ---------- */
+  legend {
+    font-size: 1.45rem;
+    font-weight: 700;
     text-align: center;
-    border-bottom: none;
-}
-
-fieldset {
+    margin-bottom: 1.8rem;
+  }
+  
+  /* ---------- Layout ---------- */
+  fieldset {
     border: none;
     padding: 0;
-    margin: 0;
-}
-
-/* Grid Layout: Handles the side-by-side fields */
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Creates two equal columns */
-    gap: 1.25rem;
-    margin-bottom: 0.75rem;
-}
-
-.form-group label {
-    display: block;
-    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Wrapper for each field */
+  .form-row {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Labels */
+  label {
+    margin-bottom: 6px;
     font-weight: 600;
-    color: #475569;
-    margin-bottom: 0.3rem;
-}
-
-.form-control {
-    width: 100%;
-    padding: 0.6rem 0.8rem;
+    color: #374151;
+  }
+  
+  /* Inputs */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
     font-size: 0.95rem;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    background-color: #f8fafc;
-}
-
-.form-control:focus {
     outline: none;
+    background: #fff;
+    transition: 0.2s ease;
+  }
+  
+  input:focus,
+  select:focus {
     border-color: #2563eb;
-    background-color: #ffffff;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
-}
-
-/* Validation Errors: Tightened to save space */
-.text-danger {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  }
+  
+  /* Errors */
+  .text-danger {
     color: #dc2626;
-    font-size: 0.75rem;
-    display: block;
-    margin-top: 0.2rem;
-}
-
-/* Actions Section */
-.form-actions {
-    margin-top: 1rem;
-    text-align: center;
-}
-
-.btn-primary {
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
+  
+  /* ---------- Button ---------- */
+  button,
+  .btn-primary {
     width: 100%;
-    max-width: 250px; /* Keeps the button from being too wide */
-    background-color: #2563eb;
-    color: white;
-    padding: 0.75rem;
-    font-size: 1rem;
-    font-weight: 700;
+    padding: 11px 14px;
+    border-radius: 10px;
     border: none;
-    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.btn-primary:hover {
-    background-color: #1d4ed8;
-}
-
-.form-footer {
-    margin-top: 1rem;
-}
-
-.form-footer a {
+    transition: 0.2s ease;
+  }
+  
+  button:hover,
+  .btn-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+  }
+  
+  /* ---------- Divider ---------- */
+  .hr-line {
+    margin: 1.4rem 0 0.8rem;
+    border: none;
+    height: 1px;
+    background: #e5e7eb;
+  }
+  
+  /* ---------- Footer text inside card ---------- */
+  .auth-switch {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6b7280;
+  }
+  
+  .auth-switch a {
     color: #2563eb;
-    text-decoration: none;
     font-weight: 600;
-}
-
-/* Responsive: Stacks fields on mobile screens */
-@media (max-width: 550px) {
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
+    text-decoration: none;
+  }
+  
+  .auth-switch a:hover {
+    text-decoration: underline;
+  }
+  
+  /* ---------- Hide website footer on this page ---------- */
+  .footer {
+    display: none !important;
+  }
+  
+  /* ---------- Mobile ---------- */
+  @media (max-width: 640px) {
+    form {
+      padding: 1.6rem;
     }
-    
-    .content-section {
-        overflow-y: auto; /* Allows scroll only on small mobile devices */
-        align-items: flex-start;
-    }
-}
-
-/* Add this to your register.css to override base.css */
-
-/* 1. Remove global scroll */
-body {
-    overflow: hidden;
-    height: 100vh;
-}
-
-/* 2. Remove the 2rem padding from the main tag */
-main {
-    padding: 0 !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* 3. Make the registration container fit exactly */
-.content-section {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Subtracts navbar (approx 64px) and footer if visible */
-    height: calc(100vh - 80px); 
-}
+  }
+  
