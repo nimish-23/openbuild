@@ -1,0 +1,86 @@
+{
+    "schema_version": "1.1.0",
+    "enums": {
+        "post_types": [
+            "init",
+            "update",
+            "feature",
+            "fix",
+            "decision",
+            "learning",
+            "milestone",
+            "reflection"
+        ]
+    },
+    "meta": {
+        "id": 6,
+        "title": "OpenBuild \u2013 Build in Public Platform",
+        "tech_stack": [
+            "Flask",
+            "Python",
+            "Html",
+            "CSS",
+            "SQLite"
+        ],
+        "description": "Traditional portfolios show the finished product; OpenBuild shows the evolution.\r\nBy tracking daily build logs, technical decisions, and challenges, developers create a public paper trail of their learning and growth. OpenBuild then applies AI to convert this unstructured journey into structured, platform-ready narratives suitable for modern professional and social platforms.\r\n",
+        "status": "in_progress",
+        "project_stage": "active_development",
+        "repo_url": "https://github.com/nimish-23/openbuild",
+        "start_date": "2025-12-22 00:00:00",
+        "created_at": "2026-01-01 09:06:26",
+        "updated_at": "2026-01-01 10:08:45"
+    },
+    "journey": {
+        "total_steps": 6,
+        "logs": [
+            {
+                "step": 1,
+                "title": "Project Initialization & Direction Setting",
+                "content": "Started working on **OpenBuild**, a build-in-public platform for developers.\r\n\r\nThe first step was defining the direction of the project, so I focused on writing a clear README before writing any code. This helped me clarify the problem I\u2019m solving and the long-term vision of the platform.\r\n\r\nI initialized the GitHub repository and made the first commit with the initial project structure and documentation.\r\n\r\n**Key decision:** Treat this project as a product, not just a demo \u2014 documentation and clarity come first.\r\n",
+                "post_type": "init",
+                "intent": "foundation",
+                "created_at": "2026-01-01T09:22:28"
+            },
+            {
+                "step": 2,
+                "title": "Building the core OpenBuild web interface",
+                "content": "After defining the direction and vision for OpenBuild, the next step was to turn\r\nthat idea into something real.\r\n\r\nI built the core web interface that powers the platform:\r\n- A home feed to discover project updates from the community\r\n- Dedicated project pages with a timeline-style journey log\r\n- Pagination to handle growing build logs\r\n- A sticky dashboard for quick navigation between projects\r\n\r\nThe focus wasn\u2019t just visual design.\r\nThe UI is intentionally structured to encourage consistent, readable updates\r\nthat can later be processed as structured data for analytics and AI features.\r\n\r\nThis phase marked the transition of OpenBuild from a concept into a usable\r\nbuild-in-public platform.\r\n",
+                "post_type": "update",
+                "intent": "progress",
+                "created_at": "2026-01-01T13:50:49"
+            },
+            {
+                "step": 3,
+                "title": "Designing build-in-public posts as structured data",
+                "content": "While working on OpenBuild, I realized that most build-in-public content is\r\ngreat for humans but unstructured and inefficient for data and AI systems.\r\n\r\nInstead of treating posts as plain text, I designed OpenBuild updates as\r\nstructured data points.\r\n\r\nEach post captures:\r\n- Project context\r\n- Post type (start, progress, blocker, release)\r\n- Timestamps\r\n- Markdown structure\r\n- Media attachments\r\n\r\nThis approach makes posts useful beyond just reading:\r\nthey become analyzable, searchable, and AI-ready.\r\n\r\nThe goal is simple \u2014 every post should work twice:\r\nonce for the community, and once as clean data for future AI features.\r\n",
+                "post_type": "learning",
+                "intent": "reflection",
+                "created_at": "2026-01-01T13:53:44"
+            },
+            {
+                "step": 4,
+                "title": "Designing project journey logs for long-term consistency",
+                "content": "As OpenBuild started collecting more updates, the next challenge was consistency\r\nover time.\r\n\r\nI designed project updates as a journey log rather than isolated posts.\r\nEach project follows a timeline-based structure where progress, blockers,\r\nand milestones are captured in sequence.\r\n\r\nThis approach helps in two ways:\r\n- Developers can clearly see how a project evolved over time\r\n- The data naturally forms a time-series that can later be analyzed or summarized\r\n\r\nBy treating each project as a continuous journey, OpenBuild encourages\r\naccountability, reflection, and meaningful progress \u2014 not just final outcomes.\r\nEarly project updates were backfilled after the core platform stabilized,\r\nso ordering is based on sequence rather than creation time.\r\n\r\n",
+                "post_type": "feature",
+                "intent": "progress",
+                "created_at": "2026-01-01T13:55:53"
+            },
+            {
+                "step": 5,
+                "title": "Structured updates: introducing post types in OpenBuild",
+                "content": "As OpenBuild started growing beyond simple text updates, I realized that not all progress logs are the same.\r\n\r\nSome posts introduce features, some fix bugs, others capture learnings \u2014 and treating everything as plain text would limit both clarity and future automation.\r\n\r\nIn this update, I introduced **Post Types** and updated the UI to support them.\r\n\r\n**What changed:**\r\n- Added a `post_type` field to posts (INIT, FEATURE, FIX, REFACTOR, DEPLOY, REFLECTION, UPDATE)\r\n- Updated the post creation form with a clean dropdown\r\n- Added helper descriptions in the UI for clarity and consistency\r\n- Ensured structured data for future AI processing\r\n\r\nThis might look like a small UI change, but it\u2019s a foundational step:\r\nclean labels \u2192 better data \u2192 meaningful automation later.\r\n\r\nDesigning the data intentionally now makes it much easier to build AI features on top of it in the future.\r\n\r\nBuilding slowly, but building right.\r\n",
+                "post_type": "feature",
+                "intent": "progress",
+                "created_at": "2026-01-02T14:21:46"
+            },
+            {
+                "step": 6,
+                "title": "Structured Progress: Introducing Post Types in OpenBuild",
+                "content": "As OpenBuild started evolving, I realized that not all progress updates are the same.\r\n\r\nSome posts are about adding features, some are reflections, others mark milestones.\r\nTreating everything as a generic \u201cupdate\u201d would limit clarity \u2014 both for users and\r\nfor future automation.\r\n\r\nSo I introduced **Post Types** into OpenBuild.\r\n\r\nEach project update can now be categorized as:\r\n- **Init** \u2014 Starting a project or initial setup\r\n- **Feature** \u2014 New functionality added\r\n- **Fix** \u2014 Bugs or issues resolved\r\n- **Decision** \u2014 Design or architecture choices\r\n- **Milestone** \u2014 Major progress, releases, or deploys\r\n- **Learning** \u2014 Reflections, lessons, and insights\r\n- **Update** \u2014 General progress or small changes\r\n\r\nThis improves:\r\n- Readability for people following a project\r\n- Filtering and understanding progress over time\r\n- Data quality for future AI features (summaries, scripts, insights)\r\n\r\nThis change required small but meaningful updates across:\r\n- Database structure\r\n- Post creation forms\r\n- UI clarity and intent\r\n\r\nA small feature on the surface \u2014 but an important foundation decision.\r\n\r\nBuilding OpenBuild as a **product first**, AI later.\r\n",
+                "post_type": "decision",
+                "intent": "decision",
+                "created_at": "2026-01-03T09:07:57"
+            }
+        ]
+    }
+}

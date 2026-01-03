@@ -48,7 +48,7 @@ class Posts(db.Model):
     content = db.Column(db.Text,nullable=False)
     post_type = db.Column(db.String(100),default='UPDATE')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
     image_file = db.Column(db.String(20), nullable=True)
-    author = db.relationship("Users", backref="posts")
+
+    author = db.relationship("Users", foreign_keys=[user_id], backref="posts")
 

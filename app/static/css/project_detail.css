@@ -404,9 +404,9 @@
 .type-badge.init { background-color: #3b82f6; }       /* Blue */
 .type-badge.feature { background-color: #10b981; }    /* Emerald Green */
 .type-badge.fix { background-color: #ef4444; }        /* Red */
-.type-badge.refactor { background-color: #8b5cf6; }   /* Purple */
-.type-badge.deploy { background-color: #f59e0b; }     /* Amber/Gold */
-.type-badge.reflection { background-color: #06b6d4; } /* Cyan */
+.type-badge.decision { background-color: #8b5cf6; }   /* Purple */
+.type-badge.milestone { background-color: #f59e0b; }  /* Amber/Gold */
+.type-badge.learning { background-color: #06b6d4; }   /* Cyan */
 .type-badge.update { background-color: #64748b; }     /* Slate Gray */
 
 /* --- Mobile Responsiveness --- */

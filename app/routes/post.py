@@ -64,7 +64,7 @@ def post_edit(post_id):
     post = Posts.query.get_or_404(post_id)
 
     # Security: Ensure only the author can edit
-    if post.user_id != current_user.id:
+    if post.author.id != current_user.id:
         flash("You cannot edit this post!", "danger")
         return redirect(url_for('project.project_details', project_id=post.project_id))
     
@@ -99,7 +99,7 @@ def post_delete(post_id):
     post = Posts.query.get_or_404(post_id)
     project_id = post.project_id
 
-    if post.user_id != current_user.id:
+    if post.author.id != current_user.id:
         flash("Unauthorized action.", "danger")
         return redirect(url_for('project.project_details', project_id=project_id))
 

@@ -35,12 +35,12 @@ class PostForm(FlaskForm):
     content = TextAreaField('What did you build today ?',validators=[DataRequired()])
     image = FileField('Upload Screenshot (Optional)',validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     post_type = SelectField('Post Type',choices=[
-        ('INIT'),
-        ('FEATURE'),
-        ('FIX'),
-        ('REFACTOR'),
-        ('DEPLOY'),
-        ('REFLECTION'),
-        ('UPDATE')
+        ('init','INIT'),
+        ('feature','FEATURE'),
+        ('fix','FIX'),
+        ('decision','DECISION'),
+        ('milestone','MILESTONE'),
+        ('learning','LEARNING'),
+        ('update','UPDATE')
     ])
     submit = SubmitField('Post Update')
