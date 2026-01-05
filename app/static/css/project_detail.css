@@ -256,6 +256,18 @@
     line-height: 1.5;
 }
 
+/* AI Buttons Container */
+.ai-buttons-container {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.ai-buttons-container .btn-copy-script {
+    flex: 1;
+    margin-bottom: 0;
+}
+
 /* Buttons inside Sidebar */
 .btn-copy-script {
     width: 100%;

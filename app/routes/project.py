@@ -149,7 +149,8 @@ def generate_reel(project_id):
     flash('Reel generation started! This may take a few minutes. Please refresh the page to see the result.', 'info')
     return redirect(url_for('project.project_details', project_id=project_id))
 
-@project_bp.route('/project/<int:project_id>/generate')
+@project_bp.route('/project/<int:project_id>/ai-summary', methods=['GET'])
 @login_required
-def generate_ai_script(project_id):
-    pass
+def ai_summary(project_id):
+    project = Projects.query.get_or_404(project_id)
+    return render_template('ai_summary.html', project=project)

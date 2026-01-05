@@ -1,9 +1,6 @@
 {% extends "base.html" %} {% block title %} {{ project.title }} | OpenBuild {%
 endblock %} {% block css %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/project_detail.css') }}"
-/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/project_detail.css') }}" />
 {% endblock %} {% block content %}
 <div class="project-view-container">
   <header class="project-header">
@@ -35,10 +32,7 @@ endblock %} {% block css %}
       <section class="card timeline-section">
         <div class="section-header">
           <h3>Build Log / Timeline</h3>
-          <a
-            href="{{ url_for('post.post_new', project_id=project.id) }}"
-            class="btn-sm"
-          >
+          <a href="{{ url_for('post.post_new', project_id=project.id) }}" class="btn-sm">
             + New Update
           </a>
         </div>
@@ -51,22 +45,12 @@ endblock %} {% block css %}
               <div class="post-header">
                 <h4>{{ post.title }}</h4>
                 <div class="post-actions">
-                  <a
-                    href="{{ url_for('post.post_edit', post_id=post.id) }}"
-                    class="text-edit"
-                  >
+                  <a href="{{ url_for('post.post_edit', post_id=post.id) }}" class="text-edit">
                     Edit
                   </a>
-                  <form
-                    action="{{ url_for('post.post_delete', post_id=post.id) }}"
-                    method="POST"
-                    style="display: inline"
-                  >
-                    <button
-                      type="submit"
-                      class="text-delete"
-                      onclick="return confirm('Delete this update?')"
-                    >
+                  <form action="{{ url_for('post.post_delete', post_id=post.id) }}" method="POST"
+                    style="display: inline">
+                    <button type="submit" class="text-delete" onclick="return confirm('Delete this update?')">
                       Delete
                     </button>
                   </form>
@@ -86,10 +70,7 @@ endblock %} {% block css %}
               </div>
 
               {% if post.image_file %}
-              <img
-                src="{{ url_for('static', filename='uploads/' + post.image_file) }}"
-                class="post-img"
-              />
+              <img src="{{ url_for('static', filename='uploads/' + post.image_file) }}" class="post-img" />
               {% endif %}
               <div class="post-footer">
                 <small class="text-muted">
@@ -111,42 +92,18 @@ endblock %} {% block css %}
       <div class="card ai-preview-card">
         <h4>AI Script Director</h4>
         <p class="small-text">
-          Generate optimized prompts for video models (Veo, Sora, Runway) based
-          on your logs.
+          Generate AI-powered insights and summaries from your build journey.
         </p>
 
-        {% if ai_script %}
-        <div class="script-box">
-          <div class="script-content" id="aiScriptText">{{ ai_script }}</div>
-        </div>
-        <button class="btn-copy-script" onclick="copyScript()">
-          📋 Copy Prompts
+        <button class="btn-ai-generate" onclick="openAISummary()" type="button">
+          ✨ View AI Summary
         </button>
 
         <script>
-          function copyScript() {
-            const text = document.getElementById("aiScriptText").innerText;
-            navigator.clipboard.writeText(text).then(() => {
-              alert("Prompts copied to clipboard!");
-            });
+          function openAISummary() {
+            window.location.href = "{{ url_for('project.ai_summary', project_id=project.id) }}";
           }
         </script>
-        {% endif %}
-
-        <form
-          action="{{ url_for('project.generate_ai_script', project_id=project.id) }}"
-          method="POST"
-          style="margin: 0"
-        >
-          <button
-            type="submit"
-            class="btn-ai-generate"
-            title="Generate video prompts from your build log"
-          >
-            {% if ai_script %}🔄 Regenerate Prompts{% else %}✨ Generate
-            Prompts{% endif %}
-          </button>
-        </form>
       </div>
 
       <div class="card">
@@ -166,11 +123,7 @@ endblock %} {% block css %}
         {% if project.repo_url %}
         <div class="detail-item">
           <label>Links</label>
-          <a
-            href="{{ project.repo_url }}"
-            target="_blank"
-            class="external-link"
-          >
+          <a href="{{ project.repo_url }}" target="_blank" class="external-link">
             GitHub Repository ↗
           </a>
         </div>
@@ -179,22 +132,12 @@ endblock %} {% block css %}
 
       <div class="card actions-card">
         <h4>Management</h4>
-        <a
-          href="{{ url_for('project.project_edit', project_id=project.id) }}"
-          class="btn-edit"
-        >
+        <a href="{{ url_for('project.project_edit', project_id=project.id) }}" class="btn-edit">
           Edit Project
         </a>
-        <form
-          action="{{ url_for('project.project_delete', project_id=project.id) }}"
-          method="POST"
-          style="margin-top: 10px"
-        >
-          <button
-            type="submit"
-            class="btn-delete"
-            onclick="return confirm('Are you sure?')"
-          >
+        <form action="{{ url_for('project.project_delete', project_id=project.id) }}" method="POST"
+          style="margin-top: 10px">
+          <button type="submit" class="btn-delete" onclick="return confirm('Are you sure?')">
             Delete Project
           </button>
         </form>

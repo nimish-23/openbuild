@@ -3,15 +3,9 @@ import json
 import sys
 from app import create_app, db
 from app.models import Users, Projects, Posts
+from app.constants import STATUS_TO_STAGE, POST_TYPES
 
 app = create_app()
-
-STATUS_TO_STAGE = {
-    "ideation": "idea",
-    "in_progress": "active_development",
-    "beta": "stabilization",
-    "launched": "maintenance"
-}
 
 def infer_journey_intent(post_type, step):
     post_type = post_type.lower()
@@ -66,23 +60,14 @@ def export_project_data(project_id):
                 'title': post.title,
                 'content': post.content,
                 'post_type':post_type,
-                'intent':infer_journey_intent(post_type, step),
+                'post_intent':infer_journey_intent(post_type, step),
                 'created_at': post.created_at.strftime('%Y-%m-%dT%H:%M:%S')
             })
         
         project_data = {
-            'schema_version':'1.1.0',
+            'schema_version':'1.2.0',
             'enums':{
-                'post_types':[
-                    'init',
-                    'update',
-                    'feature',
-                    'fix',
-                    'decision',
-                    'learning',
-                    'milestone',
-                    'reflection'
-                ]
+                'post_types': POST_TYPES
             },
             'meta':{
                 'id':project.id,

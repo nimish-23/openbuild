@@ -35,9 +35,9 @@ class Projects(db.Model):
 
     tech_stack = db.Column(db.String(225))
     repo_url = db.Column(db.String(225))
-    ai_output = db.Text(nullable=True)
-    ai_output_version = db.String(20, default="1.1.0")
-    ai_generated_at = db.DateTime(nullable=True)
+    ai_summary = db.Column(db.Text, nullable=True)  
+    ai_summary_version = db.Column(db.String(20), default="1.1.0")
+    ai_summary_generated_at = db.Column(db.DateTime, nullable=True)
 
     posts = db.relationship('Posts',backref='project', cascade="all, delete",lazy=True)
 
