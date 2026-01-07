@@ -28,10 +28,10 @@
         "repo_url": "https://github.com/nimish-23/openbuild",
         "start_date": "2025-12-22 00:00:00",
         "created_at": "2026-01-01 09:06:26",
-        "updated_at": "2026-01-07 09:33:48"
+        "updated_at": "2026-01-07 14:34:34"
     },
     "journey": {
-        "total_steps": 6,
+        "total_steps": 8,
         "logs": [
             {
                 "step": 1,
@@ -80,6 +80,22 @@
                 "post_type": "decision",
                 "post_intent": "decision",
                 "created_at": "2026-01-03T09:07:57"
+            },
+            {
+                "step": 7,
+                "title": "Thinking Beyond Tables: Converting DB Data into Structured JSON",
+                "content": "While building **OpenBuild**, I paused and asked myself a simple question:\r\n\r\n> If this project data needs to be consumed by APIs or AI later, is my database structure alone enough?\r\n\r\nThe answer was **no**.\r\n\r\nSo I took a step back and redesigned how project data is represented.\r\n\r\n### What I did\r\n- Converted relational database data into a **versioned JSON schema**\r\n- Modeled a project as a **complete journey**, not just rows in tables\r\n- Made the data **portable, predictable, and future-ready**\r\n\r\n### What I learned\r\n- Databases optimize **storage**\r\n- JSON schemas define **contracts**\r\n- APIs and AI need **structure, not just data**\r\n- Versioning early (even in side projects) changes how you design systems\r\n\r\nThis wasn\u2019t a big feature visually, but it fundamentally changed how I think about backend design.\r\n\r\nNext steps (future versions): exposing this data through APIs and using it directly as AI input.\r\n\r\nBuilding in public, one design decision at a time \ud83d\ude80\r\n",
+                "post_type": "learning",
+                "post_intent": "reflection",
+                "created_at": "2026-01-07T13:18:54"
+            },
+            {
+                "step": 8,
+                "title": "Turning Raw Project Data into AI-Generated Summaries",
+                "content": "After structuring project data into clean, predictable JSON, the next question was obvious:\r\n\r\n> Can this data explain the project by itself?\r\n\r\nSo I added an **AI Summary feature** to **OpenBuild**.\r\n\r\n### What the feature does\r\n- Takes structured project JSON as input\r\n- Extracts **key goals, progress, and outcomes**\r\n- Generates a **concise, human-readable project summary**\r\n- Updates automatically as the project evolves\r\n\r\n### What I learned\r\n- AI works best when the **input is intentional**\r\n- Structured data \u2192 better prompts \u2192 consistent output\r\n- Prompt design is less about clever wording and more about **clear context**\r\n- Treating AI as a layer *on top of your data model* simplifies everything\r\n\r\nThis feature isn\u2019t about replacing human storytelling \u2014  \r\nit\u2019s about **reducing friction** so builders can focus on building.\r\n\r\nNext step: improving regeneration logic and summary personalization.\r\n\r\nBuilding OpenBuild in public, one system at a time \ud83d\ude80\r\n",
+                "post_type": "milestone",
+                "post_intent": "milestone",
+                "created_at": "2026-01-07T13:27:47"
             }
         ]
     }

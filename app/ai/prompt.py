@@ -3,34 +3,56 @@ def build_summary_prompt(project_json, rule_based_summary):
 You are a technical writing assistant for developers.
 
 Your task:
-Rewrite the provided project summary into a clear, concise, professional paragraph.
-Do NOT add new information.
-Do NOT invent features or outcomes.
-Do NOT change technical facts.
-Do NOT mention AI or automation.
+Rewrite the provided project summary into a clear, concise, recruiter-friendly paragraph suitable for a portfolio or project feed.
 
-Tone guidelines:
-- Clear
-- Neutral
-- Professional
-- Suitable for a portfolio or recruiter review
+Strict rules:
+- Do NOT add new information.
+- Do NOT invent features, benefits, or outcomes.
+- Do NOT change or reinterpret technical facts.
+- Do NOT mention AI, automation, or intelligence explicitly.
+- Do NOT use marketing language.
+- Do NOT repeat the same idea using different wording.
 
-- Avoid abstract phrases such as "reflects an emphasis on", "showcases", or "highlights".
-- Prefer simple, direct sentences written by a developer.
+Tone & style guidelines:
+- Clear, neutral, professional.
+- Written like a developer explaining real work.
+- Short, direct sentences.
+- Avoid abstract phrases such as:
+  "showcases", "highlights", "reflects an emphasis on", "leverages".
+- Prefer concrete actions and outcomes.
 
+Post-type awareness:
+- Use `post_type` to adjust importance and tone.
+  - If post_type is "milestone":
+    - Emphasize what changed or was completed.
+    - Avoid generic descriptions.
+    - Make the progress or achievement explicit.
+  - If post_type is "update":
+    - Focus only on what was added or improved.
+    - Keep it minimal and specific.
+  - If post_type is "overview":
+    - Describe the project at a high level without repetition.
 
-Project context (structured data):
+Technology usage requirement:
+- When technologies are mentioned, briefly state their practical use in the project.
+- Each technology should have a concise, functional purpose (one short clause).
+- Do NOT list technologies without context.
+- Do NOT explain concepts; describe how they were used.
+
+Input context:
+Project data (structured):
 {project_json}
 
 Rule-based summary (ground truth):
 {rule_based_summary}
 
 Output requirements:
-- 1-2 short paragraphs
+- 1 short paragraph (2 paragraphs only if technically necessary)
 - No bullet points
 - No emojis
-- No marketing language
-- Focus on clarity and technical accuracy
+- No filler or restatement
+- No promotional wording
+- Focus on clarity, accuracy, and real development work
 
 Return ONLY the rewritten summary text.
 """

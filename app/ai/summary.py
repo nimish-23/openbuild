@@ -32,24 +32,29 @@ def generate_ai_summary(project_json):
     summary_lines = []
 
     summary_lines.append(
-    f"{title} is a build-in-public platform implemented using "
-    f"{', '.join(tech_stack)}, designed to document project progress through structured updates."
+    f"{title} is a build-in-public platform built with {', '.join(tech_stack)} "
+    f"to record project development through logged updates."
     )
+
+    if tech_stack:
+        summary_lines.append(
+            f"The stack is used to handle data storage, update tracking, and project metadata management."
+        )
 
     summary_lines.append(
         f"The project is currently {status.replace('_', ' ')} "
         f"and has {total_steps} documented updates over {duration_days} days."
     )
 
-    summary_lines.append(
-        f"Most updates focus on {dominant_type} activities, "
-        f"indicating a strong emphasis on {interpret_post_type(dominant_type)}."
-    )
-
-    summary_lines.append(
-        "The journey reflects consistent progress, structured decision-making, "
-        "and deliberate learning captured through chronological updates."
-    )   
+    if dominant_type == "milestone":
+        summary_lines.append(
+            "The project includes milestone updates that mark completed phases or major development steps."
+        )
+    else:
+        summary_lines.append(
+            f"Most updates are categorized as {dominant_type}, "
+            f"covering {interpret_post_type(dominant_type)}."
+        )  
 
     rule_based_summary = '\n\n'.join(summary_lines)
     
