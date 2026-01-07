@@ -1,104 +1,120 @@
-{% extends "base.html" %}
-{% block title %}AI Summary - {{ project.title }} | OpenBuild{% endblock %}
-
-{% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/ai_summary.css') }}" />
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}AI Summary - {{ project.title }} |
+OpenBuild{% endblock %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/ai_summary.css') }}"
+/>
+{% endblock %} {% block content %}
 <div class="ai-summary-container">
-    <!-- Header -->
-    <header class="summary-header">
-        <h1>✨ AI Project Summary</h1>
-        <p class="subtitle">AI-generated insights from your build journey</p>
-    </header>
+  <!-- Header -->
+  <header class="summary-header">
+    <h1>✨ AI Project Summary</h1>
+    <p class="subtitle">AI-generated insights from your build journey</p>
+  </header>
 
-    <!-- Main Content -->
-    <div class="summary-content">
-        {% if project.ai_summary %}
-        <!-- AI Summary Card -->
-        <div class="card ai-output-card">
-            <div class="card-header">
-                <h3>📝 AI Summary</h3>
-                <div class="meta-badges">
-                    {% if project.ai_summary_version %}
-                    <span class="badge version-badge">v{{ project.ai_summary_version }}</span>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="ai-content markdown-body">
-                {{ project.ai_summary | safe }}
-            </div>
-            {% if project.ai_summary_generated_at %}
-            <div class="card-footer">
-                <small class="text-muted">Generated on {{ project.ai_summary_generated_at.strftime('%B %d, %Y at %I:%M
-                    %p') }}</small>
-            </div>
-            {% endif %}
+  <!-- Main Content -->
+  <div class="summary-content">
+    {% if project.ai_summary %}
+    <!-- AI Summary Card -->
+    <div class="card ai-output-card">
+      <div class="card-header">
+        <h3>📝 AI Summary</h3>
+        <div class="meta-badges">
+          {% if project.ai_summary_version %}
+          <span class="badge version-badge"
+            >v{{ project.ai_summary_version }}</span
+          >
+          {% endif %}
         </div>
-
-        <!-- Actions -->
-        <div class="action-buttons">
-            <button class="btn btn-primary" onclick="copyToClipboard()">
-                📋 Copy Summary
-            </button>
-            <button class="btn btn-secondary" onclick="regenerateSummary()">
-                🔄 Regenerate
-            </button>
-            <a href="{{ url_for('project.project_details', project_id=project.id) }}" class="btn btn-outline">
-                ← Back to Project
-            </a>
-        </div>
-
-        {% else %}
-        <!-- No AI Output Yet -->
-        <div class="card empty-state">
-            <div class="empty-icon">🤖</div>
-            <h3>No AI Summary Generated Yet</h3>
-            <p>Generate your first AI summary to get insights about your project journey.</p>
-            <button class="btn btn-primary" onclick="regenerateSummary()">
-                ✨ Generate AI Summary
-            </button>
-        </div>
-        {% endif %}
-
-        <!-- Project Stats -->
-        <div class="card stats-card">
-            <h4>📊 Project Stats</h4>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-label">Total Updates</span>
-                    <span class="stat-value">{{ project.posts|length }}</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Status</span>
-                    <span class="stat-value status-badge {{ project.status|lower }}">{{ project.status.replace('_', ' ')
-                        }}</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Started</span>
-                    <span class="stat-value">{{ project.start_date.strftime('%b %Y') if project.start_date else 'N/A'
-                        }}</span>
-                </div>
-            </div>
-        </div>
+      </div>
+      <div class="ai-content markdown-body">
+        {{ project.ai_summary | safe }}
+      </div>
+      {% if project.ai_summary_generated_at %}
+      <div class="card-footer">
+        <small class="text-muted"
+          >Generated on {{ project.ai_summary_generated_at.strftime('%B %d, %Y
+          at %I:%M %p') }}</small
+        >
+      </div>
+      {% endif %}
     </div>
+
+    <!-- Actions -->
+    <div class="action-buttons">
+      <button class="btn btn-primary" onclick="copyToClipboard()">
+        📋 Copy Summary
+      </button>
+      <form
+        method="POST"
+        action="{{ url_for('project.ai_summary_generate_ready', project_id=project.id) }}"
+        style="display: inline"
+      >
+        <button type="submit" class="btn btn-secondary">🔄 Regenerate</button>
+      </form>
+      <a
+        href="{{ url_for('project.project_details', project_id=project.id) }}"
+        class="btn btn-outline"
+      >
+        ← Back to Project
+      </a>
+    </div>
+
+    {% else %}
+    <!-- No AI Output Yet -->
+    <div class="card empty-state">
+      <div class="empty-icon">🤖</div>
+      <h3>No AI Summary Generated Yet</h3>
+      <p>
+        Generate your first AI summary to get insights about your project
+        journey.
+      </p>
+      <form
+        method="POST"
+        action="{{ url_for('project.ai_summary_generate_ready', project_id=project.id)}}"
+      >
+        <button type="submit" class="btn btn-primary">
+          ✨ Generate AI Summary
+        </button>
+      </form>
+    </div>
+    {% endif %}
+
+    <!-- Project Stats -->
+    <div class="card stats-card">
+      <h4>📊 Project Stats</h4>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Total Updates</span>
+          <span class="stat-value">{{ project.posts|length }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Status</span>
+          <span class="stat-value status-badge {{ project.status|lower }}"
+            >{{ project.status.replace('_', ' ') }}</span
+          >
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Started</span>
+          <span class="stat-value"
+            >{{ project.start_date.strftime('%b %Y') if project.start_date else
+            'N/A' }}</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-    function copyToClipboard() {
-        const content = document.querySelector('.ai-content');
-        if (content) {
-            const text = content.innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Summary copied to clipboard! ✓');
-            });
-        }
+  function copyToClipboard() {
+    const content = document.querySelector(".ai-content");
+    if (content) {
+      const text = content.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Summary copied to clipboard! ✓");
+      });
     }
-
-    function regenerateSummary() {
-        // TODO: Implement AI summary generation
-        alert('AI Summary generation will be implemented soon!');
-    }
+  }
 </script>
 {% endblock %}

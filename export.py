@@ -1,11 +1,9 @@
 import os
 import json
 import sys
-from app import create_app, db
+from flask import has_app_context
 from app.models import Users, Projects, Posts
 from app.constants import STATUS_TO_STAGE, POST_TYPES
-
-app = create_app()
 
 def infer_journey_intent(post_type, step):
     post_type = post_type.lower()
@@ -39,12 +37,22 @@ def infer_journey_intent(post_type, step):
 
 
 def export_project_data(project_id):
-    with app.app_context():
+    # Check if we're already in an app context (called from a Flask route)
+    if not has_app_context():
+        # Only import and create app if we need to (standalone execution)
+        from app import create_app
+        app = create_app()
+        app_context = app.app_context()
+        app_context.push()
+    else:
+        app_context = None
+    
+    try:
         project = Projects.query.get(project_id)
 
         if not project:
             print(f"Project with ID {project_id} not found.")
-            return
+            return None
 
         posts = Posts.query.filter_by(project_id=project.id).order_by(Posts.created_at.asc(),Posts.id.asc()).all()
         
@@ -99,6 +107,12 @@ def export_project_data(project_id):
             json.dump(project_data, f, indent=4)
 
         print(f"✓ Project {project.id} exported successfully to: {export_file}")
+        
+        return project_data
+    finally:
+        # Clean up app context if we created one
+        if app_context is not None:
+            app_context.pop()
 
 if __name__ == "__main__":
     # Default to Project ID 1
