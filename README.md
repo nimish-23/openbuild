@@ -73,21 +73,13 @@ erDiagram
     Users {
         int id PK
         string username
-        string email UK
-        string password_hash
+        string email
     }
 
     Projects {
         int id PK
-        int user_id FK
         string title
-        text description
         string status
-        datetime start_date
-        datetime created_at
-        datetime updated_at
-        string tech_stack
-        string repo_url
         text ai_summary
         string ai_summary_version
         datetime ai_summary_generated_at
@@ -95,14 +87,12 @@ erDiagram
 
     Posts {
         int id PK
-        int user_id FK
-        int project_id FK
         string title
         text content
         string post_type
         datetime created_at
-        string image_file
     }
+
 ```
 
 ### Relationships
