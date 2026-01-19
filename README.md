@@ -37,7 +37,7 @@ OpenBuild is a **developer portfolio platform** that allows users to document th
 - ✅ **Blueprint-Based Routing** - Separated concerns across auth, projects, posts, and home modules
 - ✅ **SQLAlchemy ORM** - Normalized 3-table schema with proper relationships
 - ✅ **Database Migrations** - Version-controlled schema changes with Flask-Migrate (Alembic)
-- ✅ **RESTful API Design** - 13 endpoints across 4 blueprints
+- ✅ **RESTful API Design** - 14 endpoints across 4 blueprints
 
 ### Authentication & Security
 
@@ -295,8 +295,9 @@ erDiagram
 - `feature` - New feature implementation
 - `fix` - Bug fix
 - `decision` - Architectural decision
-- `learning` - Reflection and learning
+- `learning` - Lesson learned
 - `milestone` - Major achievement
+- `reflection` - Project reflection
 
 ---
 
@@ -694,7 +695,7 @@ openbuild/
 | GET/POST | `/post/<id>/edit`        | `post.post_edit()`   | ✅   | Edit existing post     |
 | POST     | `/post/<id>/delete`      | `post.post_delete()` | ✅   | Delete post            |
 
-**Total: 13 endpoints across 4 blueprints**
+**Total: 14 endpoints across 4 blueprints**
 
 ---
 
@@ -981,39 +982,38 @@ gunicorn -w 4 -b 0.0.0.0:8000 --timeout 120 run:app
 
 ### Planned Features
 
-**Backend Improvements:**
+Based on what I'd build next to improve the platform:
 
-- [ ] RESTful API conversion (JSON responses instead of HTML)
-- [ ] JWT authentication (replace session-based)
-- [ ] Pagination for all list endpoints
-- [ ] Search functionality (projects, posts)
-- [ ] API rate limiting (Flask-Limiter)
-- [ ] Unit tests (pytest, pytest-flask)
-- [ ] Integration tests for AI pipeline
+**Backend & Testing:**
 
-**AI Enhancements:**
+- [ ] **Unit Testing** - pytest with fixtures for models, routes (targeting 80%+ coverage)
+- [ ] **Integration Tests** - Test AI pipeline end-to-end with mock LLM responses
+- [ ] **API Documentation** - Swagger/OpenAPI spec for all endpoints
+- [ ] **Logging System** - Structured logging with rotation for debugging and monitoring
+- [ ] **Database Indexes** - Add indexes on frequently queried fields (user_id, project_id, created_at)
 
-- [ ] Async background job processing (Celery + Redis)
-- [ ] Multiple LLM model support (GPT-4, Claude)
-- [ ] Summary quality feedback loop
-- [ ] Embeddings for semantic search
-- [ ] Auto-tagging posts using LLM classification
-- [ ] Project similarity recommendations
+**AI/LLM Improvements:**
 
-**Database:**
+- [ ] **Async Job Queue** - Move AI generation to background with Celery + Redis (avoid blocking requests)
+- [ ] **Summary Caching** - Cache summaries by project content hash to reduce redundant LLM calls
+- [ ] **Prompt Experiments** - A/B test different prompt templates and measure quality
+- [ ] **User Feedback Loop** - Thumbs up/down on AI summaries to track improvement over time
+- [ ] **Multiple Model Support** - Allow switching between Ollama models (llama3.2, mistral, etc.)
 
-- [ ] PostgreSQL migration
-- [ ] Database query optimization (indexes)
-- [ ] Caching layer (Redis)
-- [ ] Full-text search (PostgreSQL FTS)
+**Production Deployment:**
 
-**Features:**
+- [ ] **PostgreSQL Migration** - Move from SQLite to production-ready database
+- [ ] **Docker Compose Setup** - Containerize Flask app, database, and Ollama for easy deployment
+- [ ] **GitHub Actions CI/CD** - Automated testing and deployment pipeline
+- [ ] **Rate Limiting** - Prevent AI endpoint abuse (5 generations/hour per user)
 
-- [ ] Team collaboration (multi-user projects)
-- [ ] Project visibility settings (public/private)
-- [ ] Export to PDF/Markdown
-- [ ] GitHub integration (sync commits as posts)
-- [ ] Analytics dashboard (project metrics)
+**User-Facing Features:**
+
+- [ ] **Public Project Pages** - Share project timelines with recruiters via shareable link
+- [ ] **GitHub Sync** - Auto-create posts from commit messages (webhook integration)
+- [ ] **Markdown Editor** - Rich text editor with live preview for post content
+- [ ] **Export to PDF** - Generate portfolio-ready project documentation
+- [ ] **Activity Analytics** - Visualize posting frequency, project progress over time
 
 ---
 
@@ -1032,7 +1032,6 @@ Contributions are welcome! Please follow these guidelines:
 - Follow PEP 8 for Python code
 - Use type hints where applicable
 - Write docstrings for functions
-- Add tests for new features
 
 ---
 
